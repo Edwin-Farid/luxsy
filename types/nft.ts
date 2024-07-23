@@ -1,5 +1,5 @@
 
-export type Trait = "attack" | "health" | "speed"
+export type Trait = "type" | "paint" 
 export type NftAttribute = {
     trait_type: Trait;
     value: string;
@@ -8,8 +8,12 @@ export type NftAttribute = {
 export type NftMeta ={
     attributes: any;
     name: string;
+    artist_name: string;
     description: string;
     image: string;
+    width: string;
+    height: string;
+    created_at: string;
     attribute: NftAttribute[];
 }
 
