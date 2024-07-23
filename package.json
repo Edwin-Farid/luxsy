@@ -24,6 +24,7 @@
     "next-iron-session": "^4.2.0",
     "react": "^18",
     "react-dom": "^18",
+    "react-helmet-async": "^2.0.5",
     "react-toastify": "^10.0.5",
     "swr": "^2.2.5",
     "uuid": "^10.0.0"
@@ -32,6 +33,7 @@
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "@types/react-helmet": "^6.1.11",
     "@types/uuid": "^10.0.0",
     "autoprefixer": "^10.4.19",
     "eslint": "^8",

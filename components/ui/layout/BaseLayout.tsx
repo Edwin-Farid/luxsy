@@ -1,4 +1,5 @@
 import { FunctionComponent } from "react";
+import { Helmet, HelmetProvider } from 'react-helmet-async';
 import Navbar from "../navbar";
 interface Props {
     children: React.ReactNode;
@@ -8,14 +9,26 @@ const BaseLayout: FunctionComponent<Props> = ({ children }) => {
 
     return (
         <>
-            <Navbar />
-            <img className="w-[1440px] h-[550px]" src="/images/hero.webp" />
-
-            <div className="py-16 bg-gray-50 overflow-hidden min-h-screen">
-                <div className="max-w-7xl mx-auto px-4 space-y-8 sm:px-6 lg:px-8">
+            <HelmetProvider>
+                <div className="App">
+                    <Helmet>
+                        <title>Luxsy</title>
+                        <meta name="description" content="Luxsy is a art marketplace blockchain that focus sell art from Lombok Artist" />
+                        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+                        <meta name="author" content="Luxsy" />
+                        <meta property="og:title" content="Luxsy" />
+                        <meta property="og:description" content="Luxsy is a art marketplace blockchain that focus sell art from Lombok Artist" />
+                        <meta property="og:image" content="https://example.com/image.jpg" />
+                        <meta property="og:url" content="https://example.com/my-page" />
+                        <meta name="twitter:title" content="Luxsy" />
+                        <meta name="twitter:description" content="Luxsy is a art marketplace blockchain that focus sell art from Lombok Artist" />
+                        <meta name="twitter:image" content="https://example.com/image.jpg" />
+                        <meta name="twitter:card" content="summary_large_image" />
+                    </Helmet>
+                    <Navbar />
                     {children}
                 </div>
-            </div>
+            </HelmetProvider>
         </>
     )
 }
