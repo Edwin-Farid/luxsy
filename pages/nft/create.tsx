@@ -138,34 +138,34 @@ const NftCreate: NextPage = () => {
     );
 
     // try {
-      const nftRes = await axios.get(nftURI, {
-        headers: { "Accept": "text/plain" }
-      });
-      const content = nftRes.data;
-      console.log(content);
-      console.log(ALLOWED_FIELDS);
-      
+    const nftRes = await axios.get(nftURI, {
+      headers: { "Accept": "text/plain" }
+    });
+    const content = nftRes.data;
+    console.log(content);
+    console.log(ALLOWED_FIELDS);
 
-      // Object.keys(content).forEach(key => {
-      //   if (!ALLOWED_FIELDS.includes(key)) {
-      //     throw new Error("Invalid JSON Structure")
-      //   }
-      // })
 
-      const tx = await contract?.mintToken(
-        nftURI,
-        ethers.utils.parseEther(price), {
-        value: ethers.utils.parseEther(0.025.toString())
-      }
-      );
+    // Object.keys(content).forEach(key => {
+    //   if (!ALLOWED_FIELDS.includes(key)) {
+    //     throw new Error("Invalid JSON Structure")
+    //   }
+    // })
 
-      await toast.promise(
-        tx!.wait(), {
-        pending: "Minting NFT Token",
-        success: "Nft created!",
-        error: "minting Error"
-      }
-      );
+    const tx = await contract?.mintToken(
+      nftURI,
+      ethers.utils.parseEther(price), {
+      value: ethers.utils.parseEther(0.025.toString())
+    }
+    );
+
+    await toast.promise(
+      tx!.wait(), {
+      pending: "Minting NFT Token",
+      success: "Nft created!",
+      error: "minting Error"
+    }
+    );
     // } catch (e: any) {
     //   console.error(e.message);
     // }
@@ -318,6 +318,22 @@ const NftCreate: NextPage = () => {
                           id="name"
                           className="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300"
                           placeholder="My Nice NFT"
+                        />
+                      </div>
+                    </div>
+                    <div>
+                      <label htmlFor="artist_name" className="block text-sm font-medium text-gray-700">
+                        Artist Name
+                      </label>
+                      <div className="mt-1 flex rounded-md shadow-sm">
+                        <input
+                          value={nftMeta.artist_name}
+                          onChange={handleChange}
+                          type="text"
+                          name="artist_name"
+                          id="artist_name"
+                          className="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300"
+                          placeholder="Some artist name"
                         />
                       </div>
                     </div>
