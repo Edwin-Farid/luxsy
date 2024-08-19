@@ -1,20 +1,19 @@
 
 export type Trait = "type" | "paint" 
 export type NftAttribute = {
-    trait_type: Trait;
+    traitType: Trait;
     value: string;
 }
 
 export type NftMeta ={
-    attributes: any;
     name: string;
-    artist_name: string;
+    artistName: string;
     description: string;
     image: string;
-    width: string;
-    height: string;
-    created_at: string;
-    attribute: NftAttribute[];
+    width: number;
+    height: number;
+    createdAt: number;
+    attributes: NftAttribute[];
 }
 
 export type NftCore = {

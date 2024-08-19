@@ -17,6 +17,8 @@ function classNames(...classes: string[]) {
 
 const Profile: NextPage = () => {
   const { nfts }  = useOwnedNfts();
+
+  console.log(nfts);
   const [activeNft, setActiveNft] = useState<Nft>();
 
   useEffect (() => {
@@ -122,8 +124,8 @@ const Profile: NextPage = () => {
                   <h3 className="font-medium text-gray-900">Information</h3>
                   <dl className="mt-2 border-t border-b border-gray-200 divide-y divide-gray-200">
                     {activeNft.meta.attributes.map((attr) => (
-                      <div key={attr.trait_type} className="py-3 flex justify-between text-sm font-medium">
-                        <dt className="text-gray-500">{attr.trait_type}: </dt>
+                      <div key={attr.traitType} className="py-3 flex justify-between text-sm font-medium">
+                        <dt className="text-gray-500">{attr.traitType}: </dt>
                         <dd className="text-gray-900 text-right">{attr.value}</dd>
                       </div>
                     ))}

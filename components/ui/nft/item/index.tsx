@@ -2,6 +2,7 @@
 
 import { FunctionComponent } from "react";
 import { NftMeta, Nft } from "../../../../types/nft";
+import { useRouter } from 'next/router';
 
 type NftItemProps = {
   item: Nft;
@@ -13,6 +14,12 @@ function shortifyAddress(address: string) {
 }
 
 const NftItem: FunctionComponent<NftItemProps> = ({ item, buyNft }) => {
+  const router = useRouter();
+
+  const handleImageClick = (tokenId) => {
+    router.push(`/nft/detail/${tokenId}`);
+  };
+  
   return (
     <>
       <div className="flex-shrink-0">
@@ -20,6 +27,8 @@ const NftItem: FunctionComponent<NftItemProps> = ({ item, buyNft }) => {
           className={`h-full w-full object-cover`}
           src={item.meta.image}
           alt="New NFT"
+          key={item.tokenId}
+          onClick={() => handleImageClick(item.tokenId)}
         />
       </div>
       <div className="flex-1 bg-white p-6 flex flex-col justify-between">

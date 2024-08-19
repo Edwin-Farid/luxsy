@@ -13,7 +13,7 @@ import { toast } from "react-toastify";
 import { useNetwork } from '@hooks/web3';
 import { ExclamationTriangleIcon } from '@heroicons/react/20/solid';
 
-const ALLOWED_FIELDS = ["name", "artist_name", "description", "image", "attributes", "width", "height", "created_at"]
+const ALLOWED_FIELDS = ["name", "artistName", "description", "image", "attributes", "width", "height", "createdAt"]
 
 
 const NftCreate: NextPage = () => {
@@ -24,15 +24,15 @@ const NftCreate: NextPage = () => {
   const [hasURI, setHasURI] = useState(false);
   const [nftMeta, setNftMeta] = useState<NftMeta>({
     name: "",
-    artist_name: "",
+    artistName: "",
     description: "",
     image: "",
-    width: "",
-    height: "",
-    created_at: "",
+    width: 0,
+    height: 0,
+    createdAt: 0,
     attributes: [
-      { trait_type: "type", value: "" },
-      { trait_type: "paint", value: "" },
+      { traitType: "type", value: "" },
+      { traitType: "paint", value: "" },
     ]
   });
 
@@ -93,7 +93,7 @@ const NftCreate: NextPage = () => {
   const handleAttributeChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
-    const attributeIdx = nftMeta.attributes.findIndex(attr => attr.trait_type === name);
+    const attributeIdx = nftMeta.attributes.findIndex(attr => attr.traitType === name);
 
     nftMeta.attributes[attributeIdx].value = value;
     setNftMeta({
@@ -129,46 +129,47 @@ const NftCreate: NextPage = () => {
 
   const creatNft = async () => {
 
-    await toast.promise(
-      new Promise((res) => setTimeout(res, 2000)), {
-      pending: "Minting NFT Token",
-      success: "Nft created!",
-      error: "minting Error"
-    }
-    );
-
-    // try {
-    const nftRes = await axios.get(nftURI, {
-      headers: { "Accept": "text/plain" }
-    });
-    const content = nftRes.data;
-    console.log(content);
-    console.log(ALLOWED_FIELDS);
-
-
-    // Object.keys(content).forEach(key => {
-    //   if (!ALLOWED_FIELDS.includes(key)) {
-    //     throw new Error("Invalid JSON Structure")
-    //   }
-    // })
-
-    const tx = await contract?.mintToken(
-      nftURI,
-      ethers.utils.parseEther(price), {
-      value: ethers.utils.parseEther(0.025.toString())
-    }
-    );
-
-    await toast.promise(
-      tx!.wait(), {
-      pending: "Minting NFT Token",
-      success: "Nft created!",
-      error: "minting Error"
-    }
-    );
-    // } catch (e: any) {
-    //   console.error(e.message);
+    // await toast.promise(
+    //   new Promise((res) => setTimeout(res, 2000)), {
+    //   pending: "Minting NFT Token",
+    //   success: "Nft created!",
+    //   error: "minting Error"
     // }
+    // );
+
+    try {
+      const nftRes = await axios.get(nftURI, {
+        headers: { "Accept": "text/plain" }
+      });
+      const content = nftRes.data;
+      console.log(content);
+      console.log(ALLOWED_FIELDS);
+
+      Object.keys(content).forEach(key => {
+        if (!ALLOWED_FIELDS.includes(key)) {
+          throw new Error("Invalid JSON Structure")
+        }
+      })
+
+      const tx = await contract?.mintToken(
+        nftURI,
+        ethers.utils.parseEther(price), {
+        value: ethers.utils.parseEther(0.025.toString())
+      }
+      );
+
+      // debugger
+
+      await toast.promise(
+        tx!.wait(), {
+        pending: "Minting NFT Token",
+        success: "Nft created!",
+        error: "minting Error"
+      }
+      );
+    } catch (e: any) {
+      console.error(e.message);
+    }
   }
 
   if (!network.isConnectedToNetwork) {
@@ -327,7 +328,7 @@ const NftCreate: NextPage = () => {
                       </label>
                       <div className="mt-1 flex rounded-md shadow-sm">
                         <input
-                          value={nftMeta.artist_name}
+                          value={nftMeta.artistName}
                           onChange={handleChange}
                           type="text"
                           name="artist_name"
@@ -396,7 +397,7 @@ const NftCreate: NextPage = () => {
                       </label>
                       <div className="mt-1">
                         <textarea
-                          value={nftMeta.created_at}
+                          value={nftMeta.createdAt}
                           onChange={handleChange}
                           id="created_at"
                           name="created_at"
@@ -450,17 +451,17 @@ const NftCreate: NextPage = () => {
                     }
                     <div className="grid grid-cols-4 gap-4">
                       {nftMeta.attributes.map(attribute =>
-                        <div key={attribute.trait_type} className="col-span-6 sm:col-span-6 lg:col-span-2">
-                          <label htmlFor={attribute.trait_type} className="block text-sm font-medium text-gray-700">
-                            {attribute.trait_type}
+                        <div key={attribute.traitType} className="col-span-6 sm:col-span-6 lg:col-span-2">
+                          <label htmlFor={attribute.traitType} className="block text-sm font-medium text-gray-700">
+                            {attribute.traitType}
                           </label>
                           <input
                             onChange={handleAttributeChange}
                             value={attribute.value}
                             type="text"
-                            name={attribute.trait_type}
-                            id={attribute.trait_type}
-                            placeholder={`Some nft ${attribute.trait_type} ...`}
+                            name={attribute.traitType}
+                            id={attribute.traitType}
+                            placeholder={`Some nft ${attribute.traitType} ...`}
                             className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                           />
                         </div>
