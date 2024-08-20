@@ -323,7 +323,7 @@ const NftCreate: NextPage = () => {
                       </div>
                     </div>
                     <div>
-                      <label htmlFor="artist_name" className="block text-sm font-medium text-gray-700">
+                      <label htmlFor="artistName" className="block text-sm font-medium text-gray-700">
                         Artist Name
                       </label>
                       <div className="mt-1 flex rounded-md shadow-sm">
@@ -331,8 +331,8 @@ const NftCreate: NextPage = () => {
                           value={nftMeta.artistName}
                           onChange={handleChange}
                           type="text"
-                          name="artist_name"
-                          id="artist_name"
+                          name="artistName"
+                          id="artistName"
                           className="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300"
                           placeholder="Some artist name"
                         />
@@ -392,15 +392,15 @@ const NftCreate: NextPage = () => {
                       </div>
                     </div>
                     <div>
-                      <label htmlFor="created_at" className="block text-sm font-medium text-gray-700">
+                      <label htmlFor="createdAt" className="block text-sm font-medium text-gray-700">
                         Years
                       </label>
                       <div className="mt-1">
                         <textarea
                           value={nftMeta.createdAt}
                           onChange={handleChange}
-                          id="created_at"
-                          name="created_at"
+                          id="createdAt"
+                          name="createdAt"
                           rows={1}
                           className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md"
                           placeholder="Some nft created at..."

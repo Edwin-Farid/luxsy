@@ -93,6 +93,19 @@ const Walletbar: FunctionComponent<WalletbarProps> = ({
               )}
             </Menu.Item>
           )}
+          {token && (
+            <Menu.Item>
+              {({ active }) => (
+                <Link legacyBehavior href="/shipment">
+                  <a
+                    className={classNames(active ? 'bg-gray-100' : '', 'block px-4 pb-2 text-sm text-gray-700')}
+                  >
+                    Shipment
+                  </a>
+                </Link>
+              )}
+            </Menu.Item>
+          )}
         </Menu.Items>
       </Menu>
     )

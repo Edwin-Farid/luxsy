@@ -42564,12 +42564,12 @@
     "5777": {
       "events": {},
       "links": {},
-      "address": "0x0B7a9648f099BC7C892F822807244043c709d1f5",
-      "transactionHash": "0xfd7639d1b71e62ccf7adb434abf738a5310c842ea7990f92dbee15f987ec0921"
+      "address": "0x79B53bAAF414e6BCbB434057588196520Ff508D4",
+      "transactionHash": "0x444d4318e452a7e6f2e5a7af94c873e0784710fa7853d0b406d7b983291f4f5f"
     }
   },
   "schemaVersion": "3.4.16",
-  "updatedAt": "2024-07-26T01:32:46.265Z",
+  "updatedAt": "2024-08-19T04:19:03.353Z",
   "networkType": "ethereum",
   "devdoc": {
     "events": {
