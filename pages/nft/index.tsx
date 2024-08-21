@@ -31,7 +31,7 @@ const Home: NextPage = () => {
                         <select
                             value={typeFilter}
                             onChange={handleTypeChange}
-                            className="block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                            className="block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-[#776B5D] focus:border-[#776B5D] sm:text-sm"
                         >
                             <option value="">All Types</option>
                             <option value="abstract">Abstract</option>
@@ -41,7 +41,7 @@ const Home: NextPage = () => {
                         <select
                             value={paintFilter}
                             onChange={handlePaintChange}
-                            className="block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                            className="block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-[#776B5D] focus:border-[#776B5D] sm:text-sm"
                         >
                             <option value="">All Paints</option>
                             <option value="Pen on Canvas">Pen on Canvas</option>

@@ -2,6 +2,7 @@ import { useState, useEffect, ChangeEvent } from 'react';
 import axios from 'axios';
 import { BaseLayout } from '@ui';
 import { toast } from "react-toastify";
+import router from 'next/router';
 
 const Shipment = () => {
     const [shipments, setShipments] = useState([]);
@@ -47,7 +48,9 @@ const Shipment = () => {
                 setSelectedShipment(null);
             })
             .catch(error => {
-                console.error('Error updating shipment:', error);
+                toast.success("Refresh token!");
+                router.push('/');
+                // console.error('Error updating shipment:', error);
             });
     };
 
@@ -146,7 +149,7 @@ const Shipment = () => {
                                 placeholder="Search by owner, art name, address or postal code ..."
                                 value={searchTerm}
                                 onChange={(e) => setSearchTerm(e.target.value)}
-                                className="w-2/4 p-2 rounded border border-gray-300 focus:border-[#776B5D] hover:border-[#776B5D]" />
+                                className="w-2/4 p-2 rounded border border-gray-300 focus:ring-[#776B5D] focus:border-[#776B5D]" />
                         </div>
 
                         <table className="min-w-full bg-white border border-gray-200 rounded">
@@ -307,7 +310,7 @@ const Shipment = () => {
                                                             <path d="M14.6869 1.58861C14.2858 1.48537 13.8769 1.72686 13.7737 2.128C13.6704 2.52914 13.9119 2.93802 14.3131 3.04127C17.5625 3.8776 20.1223 6.43745 20.9586 9.68684C21.0619 10.088 21.4708 10.3295 21.8719 10.2262C22.273 10.123 22.5145 9.71409 22.4113 9.31295C21.4387 5.5343 18.4656 2.56117 14.6869 1.58861Z" fill="#1C274C" />
                                                         </svg>) : (selectedShipment.status === 'sending') ?
                                                             (<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22ZM13.9563 14.0949C13.763 14.2644 13.5167 14.3629 13.024 14.56C10.7142 15.4839 9.55936 15.9459 8.89971 15.4976C8.7433 15.3913 8.6084 15.2564 8.50212 15.1C8.05386 14.4404 8.51582 13.2855 9.43973 10.9757C9.6368 10.483 9.73533 10.2367 9.9048 10.0434C9.94799 9.99419 9.99435 9.94782 10.0436 9.90464C10.2368 9.73517 10.4832 9.63663 10.9759 9.43956C13.2856 8.51565 14.4405 8.0537 15.1002 8.50196C15.2566 8.60824 15.3915 8.74314 15.4978 8.89954C15.946 9.5592 15.4841 10.7141 14.5602 13.0239C14.3631 13.5165 14.2646 13.7629 14.0951 13.9561C14.0519 14.0054 14.0055 14.0517 13.9563 14.0949Z" fill="#1C274C" />
+                                                                <path fillRule="evenodd" clipRule="evenodd" d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22ZM13.9563 14.0949C13.763 14.2644 13.5167 14.3629 13.024 14.56C10.7142 15.4839 9.55936 15.9459 8.89971 15.4976C8.7433 15.3913 8.6084 15.2564 8.50212 15.1C8.05386 14.4404 8.51582 13.2855 9.43973 10.9757C9.6368 10.483 9.73533 10.2367 9.9048 10.0434C9.94799 9.99419 9.99435 9.94782 10.0436 9.90464C10.2368 9.73517 10.4832 9.63663 10.9759 9.43956C13.2856 8.51565 14.4405 8.0537 15.1002 8.50196C15.2566 8.60824 15.3915 8.74314 15.4978 8.89954C15.946 9.5592 15.4841 10.7141 14.5602 13.0239C14.3631 13.5165 14.2646 13.7629 14.0951 13.9561C14.0519 14.0054 14.0055 14.0517 13.9563 14.0949Z" fill="#1C274C" />
                                                             </svg>)
                                                             : (<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                                 <path fillRule="evenodd" clipRule="evenodd" d="M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12ZM16.0303 8.96967C16.3232 9.26256 16.3232 9.73744 16.0303 10.0303L11.0303 15.0303C10.7374 15.3232 10.2626 15.3232 9.96967 15.0303L7.96967 13.0303C7.67678 12.7374 7.67678 12.2626 7.96967 11.9697C8.26256 11.6768 8.73744 11.6768 9.03033 11.9697L10.5 13.4393L12.7348 11.2045L14.9697 8.96967C15.2626 8.67678 15.7374 8.67678 16.0303 8.96967Z" fill="#1C274C" />
@@ -374,7 +377,7 @@ const Shipment = () => {
                                     id="per-page"
                                     value={perPage}
                                     onChange={(e) => setPerPage(e.target.value)}
-                                    className="rounded border border-gray-300">
+                                    className="rounded border border-gray-300  focus:ring-[#776B5D] focus:border-[#776B5D]">
                                     <option value={10}>10</option>
                                     <option value={20}>20</option>
                                     <option value={50}>50</option>
