@@ -1,6 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, ChangeEvent } from 'react';
 import axios from 'axios';
 import { BaseLayout } from '@ui';
+import { toast } from "react-toastify";
 
 const Shipment = () => {
     const [shipments, setShipments] = useState([]);
@@ -9,8 +10,11 @@ const Shipment = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [isPopupVisible, setIsPopupVisible] = useState(false);
     const [selectedShipment, setSelectedShipment] = useState(null);
-    const [newStatus, setNewStatus] = useState('');
-    const [newWithdrawStatus, setNewWithdrawStatus] = useState('');
+    const [shippingMeta, setShippingMeta] = useState({
+        deliveryNumber: '',
+        status: '',
+        withdraw: '',
+    });
 
     useEffect(() => {
         const token = sessionStorage.getItem('token');
@@ -24,22 +28,22 @@ const Shipment = () => {
             .catch(error => {
                 console.error('Error fetching shipments:', error);
             });
-        if (newStatus && newWithdrawStatus) {
+        if (shippingMeta.status && shippingMeta.withdraw) {
             handleUpdate();
         }
-    }, [currentPage, perPage, newStatus, newWithdrawStatus]);
+    }, [currentPage, perPage, shippingMeta.status, shippingMeta.withdraw]);
 
     const handleUpdate = () => {
         const token = sessionStorage.getItem('token');
-        axios.put(`http://127.0.0.1:8000/api/shipment/${selectedShipment.id}?status=${newStatus}&withdraw=${newWithdrawStatus}`, {}, {
+        axios.put(`http://127.0.0.1:8000/api/shipment/${selectedShipment.id}?status=${shippingMeta.status}&withdraw=${shippingMeta.withdraw}&deliveryNumber=${shippingMeta.deliveryNumber}`, {}, {
             headers: { Authorization: `Bearer ${token}` }
         })
             .then(response => {
                 // alert('Shipment status updated successfully');
+                toast.success("Shipment status updated successfully");
                 setShipments(shipments.map(shipment => shipment.id === selectedShipment.id ? response.data.data : shipment));
                 setIsPopupVisible(false);
-                setNewStatus('');
-                setNewWithdrawStatus('');
+                setShippingMeta({ ...shippingMeta, status: '', withdraw: '' });
                 setSelectedShipment(null);
             })
             .catch(error => {
@@ -66,38 +70,49 @@ const Shipment = () => {
         shipment.owner.toLowerCase().includes(searchTerm.toLowerCase()) ||
         shipment.artName.toLowerCase().includes(searchTerm.toLowerCase()) ||
         shipment.address.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        shipment.status.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        shipment.withdraw.toLowerCase().includes(searchTerm.toLowerCase()) ||
         shipment.postalCode.toString().toLowerCase().includes(searchTerm.toLowerCase())
     );
 
     const handlePopupToggle = (shipment) => {
         setSelectedShipment(shipment);
+        setShippingMeta({ ...shippingMeta, status: '', withdraw: '', deliveryNumber: shipment.deliveryNumber });
         setIsPopupVisible(!isPopupVisible);
     };
 
     const handleApprove = () => {
         if (selectedShipment.status === 'pending' && selectedShipment.withdraw === 'pending') {
-            setNewStatus('done');
-            setNewWithdrawStatus('pending');
+            setShippingMeta({ ...shippingMeta, status: 'sending', withdraw: 'pending' });
+
+        } else if (selectedShipment.status === 'sending' && selectedShipment.withdraw === 'pending') {
+            setShippingMeta({ ...shippingMeta, status: 'done', withdraw: 'pending' });
+
         } else if (selectedShipment.status === 'done' && selectedShipment.withdraw === 'pending') {
-            setNewStatus('done');
-            setNewWithdrawStatus('done');
-        } else if (selectedShipment.status === 'done' && selectedShipment.withdraw === 'done') {
-            setNewStatus('done');
-            setNewWithdrawStatus('pending');
+            setShippingMeta({ ...shippingMeta, status: 'done', withdraw: 'done' });
+
         }
     }
 
     const handleDecline = () => {
         if (selectedShipment.status === 'pending' && selectedShipment.withdraw === 'pending') {
-            setNewStatus('pending');
-            setNewWithdrawStatus('pending');
+            setShippingMeta({ ...shippingMeta, status: 'pending', withdraw: 'pending' });
+
+        } else if (selectedShipment.status === 'sending' && selectedShipment.withdraw === 'pending') {
+            setShippingMeta({ ...shippingMeta, status: 'pending', withdraw: 'pending' });
+
         } else if (selectedShipment.status === 'done' && selectedShipment.withdraw === 'pending') {
-            setNewStatus('pending');
-            setNewWithdrawStatus('pending');
+            setShippingMeta({ ...shippingMeta, status: 'sending', withdraw: 'pending' });
+
         } else if (selectedShipment.status === 'done' && selectedShipment.withdraw === 'done') {
-            setNewStatus('done');
-            setNewWithdrawStatus('pending');
+            setShippingMeta({ ...shippingMeta, status: 'done', withdraw: 'pending' });
+
         }
+    }
+
+    const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        const { name, value } = e.target;
+        setShippingMeta({ ...shippingMeta, [name]: value });
     }
 
     return (
@@ -106,20 +121,20 @@ const Shipment = () => {
                 <div className="max-w-7xl mx-auto px-4 space-y-8 sm:px-6 lg:px-8">
                     <div className="p-4">
                         <div className="flex justify-between mb-4 gap-6">
-                            <div className="bg-[#1771EE] text-white text-start rounded p-6 shadow-md w-1/4">
+                            <div className="bg-[#776B5D] text-white text-start rounded p-6 shadow-md w-1/4">
                                 <h3 className="text-lg font-light">Transaction</h3>
                                 <p className="text-xl font-semibold">{shipments.reduce((total, shipment) => total + (shipment.price || 0), 0).toPrecision(7)} <span className='text-[#ffffffb1] text-sm'>ETH</span></p>
                             </div>
                             <div className="bg-[#1B9A74] text-white text-start rounded p-6 shadow-md w-1/4">
                                 <h3 className="text-lg font-light">Withdraw</h3>
-                                <p className="text-xl font-semibold">{shipments.filter(shipment => shipment.status === 'done').length} <span className='text-[#ffffffb1] text-sm'>ETH</span></p>
+                                <p className="text-xl font-semibold">{shipments.filter(shipment => shipment.withdraw === 'done').length} <span className='text-[#ffffffb1] text-sm'>ETH</span></p>
                             </div>
                             <div className="bg-[#FF9F30] text-white text-start rounded p-6 shadow-md w-1/4">
-                                <h3 className="text-lg font-light">Transaction Pending</h3>
+                                <h3 className="text-lg font-light">Shipping Pending</h3>
                                 <p className="text-xl font-semibold">{shipments.filter(shipment => shipment.status === 'pending').length} <span className='text-[#ffffffb1] text-sm'>NFT</span></p>
                             </div>
-                            <div className="bg-[#E54546] text-white text-start rounded p-6 shadow-md w-1/4">
-                                <h3 className="text-lg font-light">Transaction Done</h3>
+                            <div className="bg-[#1771EE] text-white text-start rounded p-6 shadow-md w-1/4">
+                                <h3 className="text-lg font-light">Shipping Done</h3>
                                 <p className="text-xl font-semibold">{shipments.filter(shipment => shipment.status === 'done').length} <span className='text-[#ffffffb1] text-sm'>NFT</span></p>
                             </div>
                         </div>
@@ -131,7 +146,7 @@ const Shipment = () => {
                                 placeholder="Search by owner, art name, address or postal code ..."
                                 value={searchTerm}
                                 onChange={(e) => setSearchTerm(e.target.value)}
-                                className="w-2/4 p-2 rounded border border-gray-300" />
+                                className="w-2/4 p-2 rounded border border-gray-300 focus:border-[#776B5D] hover:border-[#776B5D]" />
                         </div>
 
                         <table className="min-w-full bg-white border border-gray-200 rounded">
@@ -143,7 +158,7 @@ const Shipment = () => {
                                     <th className="py-2 px-4 border-b">Owner</th>
                                     <th className="py-2 px-4 border-b">Address</th>
                                     <th className="py-2 px-4 border-b">Postal Code</th>
-                                    <th className="py-2 px-4 border-b">Shipment Status</th>
+                                    <th className="py-2 px-4 border-b">Shipping Status</th>
                                     <th className="py-2 px-4 border-b">Withdraw</th>
                                     <th className="py-2 px-4 border-b">Action</th>
                                 </tr>
@@ -153,15 +168,14 @@ const Shipment = () => {
                                     <tr key={shipment.id} className='text-center'>
                                         <td className="py-2 px-4 border-b">{shipment.tokenId}</td>
                                         <td className="py-2 px-4 border-b">{shipment.artName}</td>
-                                        <td className="py-2 px-4 border-b">{shipment.price}</td>
-                                        <td className="py-2 px-4 border-b">{shipment.owner}</td>
+                                        <td className="py-2 px-4 border-b">{shipment.price.toString().slice(0, 7)}</td>
+                                        <td className="py-2 px-4 border-b">{`${shipment.owner.slice(0, 5)}...${shipment.owner.slice(-4)}`}</td>
                                         <td className="py-2 px-4 border-b">{shipment.address}</td>
                                         <td className="py-2 px-4 border-b">{shipment.postalCode}</td>
-                                        {/* <td className="py-2 px-4 border-b">{shipment.status}</td> */}
-                                        <td className="py-2 px-4 border-b"><button className={`px-2 py-1 rounded text-xs ${shipment.status === "cancel"
-                                            ? "bg-[#FFD6D6] text-[#FF0000]"
-                                            : shipment.status === "pending"
-                                                ? "bg-[#FFF7DA] text-[#E6A601]"
+                                        <td className="py-2 px-4 border-b"><button className={`px-2 py-1 rounded text-xs ${shipment.status === "pending"
+                                            ? "bg-[#FFF7DA] text-[#E6A601]"
+                                            : shipment.status === "sending"
+                                                ? "bg-[#BDECFE] text-[#36B8EA]"
                                                 : shipment.status === "done"
                                                     ? "bg-[#DDF6E8] text-[#28C76F]"
                                                     : ""
@@ -174,13 +188,12 @@ const Shipment = () => {
                                             }`}>{shipment.withdraw}</button></td>
                                         <td className="py-2 px-4 border-b">
                                             <button
-                                                // onClick={() => handleUpdate(shipment.id, shipment.status === 'pending' ? 'done' : 'pending')}
                                                 onClick={() => handlePopupToggle(shipment)}
 
-                                                className="mr-2 px-2 py-1 text-[#28bbff] rounded text-xs group">
-                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="group-hover:fill-[#28bbff]">
-                                                    <path className="group-hover:fill-[#28bbff]" opacity="0.5" d="M20.8487 8.71306C22.3844 7.17735 22.3844 4.68748 20.8487 3.15178C19.313 1.61607 16.8231 1.61607 15.2874 3.15178L14.4004 4.03882C14.4125 4.0755 14.4251 4.11268 14.4382 4.15035C14.7633 5.0875 15.3768 6.31601 16.5308 7.47002C17.6848 8.62403 18.9133 9.23749 19.8505 9.56262C19.888 9.57563 19.925 9.58817 19.9615 9.60026L20.8487 8.71306Z" fill="#1C274C" />
-                                                    <path className="group-hover:fill-[#28bbff]" d="M14.4386 4L14.4004 4.03819C14.4125 4.07487 14.4251 4.11206 14.4382 4.14973C14.7633 5.08687 15.3768 6.31538 16.5308 7.4694C17.6848 8.62341 18.9133 9.23686 19.8505 9.56199C19.8876 9.57489 19.9243 9.58733 19.9606 9.59933L11.4001 18.1598C10.823 18.7369 10.5343 19.0255 10.2162 19.2737C9.84082 19.5665 9.43469 19.8175 9.00498 20.0223C8.6407 20.1959 8.25351 20.3249 7.47918 20.583L3.39584 21.9442C3.01478 22.0712 2.59466 21.972 2.31063 21.688C2.0266 21.4039 1.92743 20.9838 2.05445 20.6028L3.41556 16.5194C3.67368 15.7451 3.80273 15.3579 3.97634 14.9936C4.18114 14.5639 4.43213 14.1578 4.7249 13.7824C4.97307 13.4643 5.26165 13.1757 5.83874 12.5986L14.4386 4Z" fill="#1C274C" />
+                                                className="mr-2 px-2 py-1 text-[#8E8478] rounded text-xs group">
+                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="group-hover:fill-[#8E8478]">
+                                                    <path className="group-hover:fill-[#8E8478]" opacity="0.5" d="M20.8487 8.71306C22.3844 7.17735 22.3844 4.68748 20.8487 3.15178C19.313 1.61607 16.8231 1.61607 15.2874 3.15178L14.4004 4.03882C14.4125 4.0755 14.4251 4.11268 14.4382 4.15035C14.7633 5.0875 15.3768 6.31601 16.5308 7.47002C17.6848 8.62403 18.9133 9.23749 19.8505 9.56262C19.888 9.57563 19.925 9.58817 19.9615 9.60026L20.8487 8.71306Z" fill="#1C274C" />
+                                                    <path className="group-hover:fill-[#8E8478]" d="M14.4386 4L14.4004 4.03819C14.4125 4.07487 14.4251 4.11206 14.4382 4.14973C14.7633 5.08687 15.3768 6.31538 16.5308 7.4694C17.6848 8.62341 18.9133 9.23686 19.8505 9.56199C19.8876 9.57489 19.9243 9.58733 19.9606 9.59933L11.4001 18.1598C10.823 18.7369 10.5343 19.0255 10.2162 19.2737C9.84082 19.5665 9.43469 19.8175 9.00498 20.0223C8.6407 20.1959 8.25351 20.3249 7.47918 20.583L3.39584 21.9442C3.01478 22.0712 2.59466 21.972 2.31063 21.688C2.0266 21.4039 1.92743 20.9838 2.05445 20.6028L3.41556 16.5194C3.67368 15.7451 3.80273 15.3579 3.97634 14.9936C4.18114 14.5639 4.43213 14.1578 4.7249 13.7824C4.97307 13.4643 5.26165 13.1757 5.83874 12.5986L14.4386 4Z" fill="#1C274C" />
                                                 </svg>
 
                                             </button>
@@ -275,13 +288,30 @@ const Shipment = () => {
                                                     }
 
                                                     <h3 className="flex items-start mb-1 text-lg font-semibold text-gray-900 justify-between">
-                                                        Shipment
+                                                        <div>
+                                                            Shipment
+                                                            <div className="mt-1">
+                                                                <textarea
+                                                                    id="deliveryNumber"
+                                                                    name="deliveryNumber"
+                                                                    value={shippingMeta.deliveryNumber}
+                                                                    onChange={handleChange}
+                                                                    disabled={selectedShipment.status !== 'pending' ? true : false}
+                                                                    rows={2}
+                                                                    className={`shadow-sm focus:ring-[#776B5D] ${(selectedShipment.status !== "pending") && `bg-gray-300`}  focus:border-[#776B5D] mt-1 block w-full sm:text-sm border border-gray-300 rounded-md`}
+                                                                    placeholder="Some delivery number..." />
+                                                            </div>
+                                                        </div>
                                                         {(selectedShipment.status === 'pending') ? (<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                             <path d="M16.1139 21.9317C14.1495 22.7453 11.9881 22.9582 9.90278 22.5434C7.81749 22.1287 5.90202 21.1048 4.39861 19.6014C2.89519 18.098 1.87135 16.1825 1.45656 14.0972C1.04177 12.0119 1.25466 9.85046 2.0683 7.88615C2.88194 5.92185 4.2598 4.24293 6.02763 3.0617C7.79545 1.88048 9.87386 1.25 12 1.25C12.4142 1.25 12.75 1.58579 12.75 2C12.75 2.41421 12.4142 2.75 12 2.75C10.1705 2.75 8.38213 3.2925 6.86098 4.30891C5.33983 5.32531 4.15423 6.76996 3.45412 8.46018C2.75401 10.1504 2.57083 12.0103 2.92774 13.8046C3.28465 15.5989 4.16563 17.2471 5.45927 18.5407C6.7529 19.8344 8.4011 20.7154 10.1954 21.0723C11.9897 21.4292 13.8496 21.246 15.5398 20.5459C17.23 19.8458 18.6747 18.6602 19.6911 17.139C20.7075 15.6179 21.25 13.8295 21.25 12C21.25 11.5858 21.5858 11.25 22 11.25C22.4142 11.25 22.75 11.5858 22.75 12C22.75 14.1262 22.1195 16.2046 20.9383 17.9724C19.7571 19.7402 18.0782 21.1181 16.1139 21.9317Z" fill="#1C274C" />
                                                             <path d="M14.6869 1.58861C14.2858 1.48537 13.8769 1.72686 13.7737 2.128C13.6704 2.52914 13.9119 2.93802 14.3131 3.04127C17.5625 3.8776 20.1223 6.43745 20.9586 9.68684C21.0619 10.088 21.4708 10.3295 21.8719 10.2262C22.273 10.123 22.5145 9.71409 22.4113 9.31295C21.4387 5.5343 18.4656 2.56117 14.6869 1.58861Z" fill="#1C274C" />
-                                                        </svg>) : (<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                            <path fillRule="evenodd" clipRule="evenodd" d="M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12ZM16.0303 8.96967C16.3232 9.26256 16.3232 9.73744 16.0303 10.0303L11.0303 15.0303C10.7374 15.3232 10.2626 15.3232 9.96967 15.0303L7.96967 13.0303C7.67678 12.7374 7.67678 12.2626 7.96967 11.9697C8.26256 11.6768 8.73744 11.6768 9.03033 11.9697L10.5 13.4393L12.7348 11.2045L14.9697 8.96967C15.2626 8.67678 15.7374 8.67678 16.0303 8.96967Z" fill="#1C274C" />
-                                                        </svg>)}
+                                                        </svg>) : (selectedShipment.status === 'sending') ?
+                                                            (<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22ZM13.9563 14.0949C13.763 14.2644 13.5167 14.3629 13.024 14.56C10.7142 15.4839 9.55936 15.9459 8.89971 15.4976C8.7433 15.3913 8.6084 15.2564 8.50212 15.1C8.05386 14.4404 8.51582 13.2855 9.43973 10.9757C9.6368 10.483 9.73533 10.2367 9.9048 10.0434C9.94799 9.99419 9.99435 9.94782 10.0436 9.90464C10.2368 9.73517 10.4832 9.63663 10.9759 9.43956C13.2856 8.51565 14.4405 8.0537 15.1002 8.50196C15.2566 8.60824 15.3915 8.74314 15.4978 8.89954C15.946 9.5592 15.4841 10.7141 14.5602 13.0239C14.3631 13.5165 14.2646 13.7629 14.0951 13.9561C14.0519 14.0054 14.0055 14.0517 13.9563 14.0949Z" fill="#1C274C" />
+                                                            </svg>)
+                                                            : (<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                <path fillRule="evenodd" clipRule="evenodd" d="M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12ZM16.0303 8.96967C16.3232 9.26256 16.3232 9.73744 16.0303 10.0303L11.0303 15.0303C10.7374 15.3232 10.2626 15.3232 9.96967 15.0303L7.96967 13.0303C7.67678 12.7374 7.67678 12.2626 7.96967 11.9697C8.26256 11.6768 8.73744 11.6768 9.03033 11.9697L10.5 13.4393L12.7348 11.2045L14.9697 8.96967C15.2626 8.67678 15.7374 8.67678 16.0303 8.96967Z" fill="#1C274C" />
+                                                            </svg>)}
                                                     </h3>
                                                 </li>
                                                 {/* Add more timeline items here */}
@@ -315,18 +345,19 @@ const Shipment = () => {
                                         </div>
                                         {/* Modal footer */}
                                         <div className="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b gap-2">
-                                            {(selectedShipment.status === 'done') &&
+                                            {(selectedShipment.status === 'done' || selectedShipment.status === 'sending') &&
                                                 <button
                                                     onClick={handleDecline}
                                                     type="button"
-                                                    className="w-full bg-[#FF0000] text-white hover:bg-red-100 hover:text-gray-900 rounded text-sm px-4 py-2">
+                                                    className="w-full bg-[#FF0000] text-white hover:bg-[#AA0000] hover:text-white rounded text-sm px-4 py-2">
                                                     Decline
-                                                </button>}
+                                                </button>
+                                            }
                                             {(selectedShipment.withdraw === 'pending') &&
                                                 <button
                                                     onClick={handleApprove}
                                                     type="button"
-                                                    className="w-full bg-[#1771EE] text-white hover:bg-blue-100 hover:text-gray-900 rounded text-sm px-4 py-2">
+                                                    className="w-full bg-[#776B5D] text-white hover:bg-[#4F473E] hover:text-white rounded text-sm px-4 py-2">
                                                     Approve
                                                 </button>
                                             }

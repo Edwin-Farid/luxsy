@@ -28,9 +28,9 @@ const Home: NextPage = () => {
                 {/* dropdown filter */}
                 <div className="relative py-4">
                     <div className="flex space-x-4">
-                        <select 
-                            value={typeFilter} 
-                            onChange={handleTypeChange} 
+                        <select
+                            value={typeFilter}
+                            onChange={handleTypeChange}
                             className="block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                         >
                             <option value="">All Types</option>
@@ -38,9 +38,9 @@ const Home: NextPage = () => {
                             <option value="realisme">Realism</option>
                         </select>
 
-                        <select 
-                            value={paintFilter} 
-                            onChange={handlePaintChange} 
+                        <select
+                            value={paintFilter}
+                            onChange={handlePaintChange}
                             className="block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                         >
                             <option value="">All Paints</option>
