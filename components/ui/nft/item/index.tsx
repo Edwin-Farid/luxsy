@@ -31,10 +31,10 @@ const NftItem: FunctionComponent<NftItemProps> = ({ item, buyNft }) => {
           onClick={() => handleImageClick(item.tokenId)}
         />
       </div>
-      <div className="flex-1 bg-white p-6 flex flex-col justify-between">
+      <div className="flex-1 bg-white p-6 flex flex-col justify-between font-sans">
         <div className="flex-1">
           <div className="block mt-2">
-            <p className="text-black text-xl font-semibold font-['Open Sans']">{item.meta.name}</p>
+            <p className="text-black text-xl font-semibold">{item.meta.name}</p>
           </div>
         </div>
 
@@ -42,7 +42,7 @@ const NftItem: FunctionComponent<NftItemProps> = ({ item, buyNft }) => {
           <dl className="-mx-4 mt-2 flex flex-wrap">
             <div className="flex flex-col px-4 pt-4">
               <dt className="order-1 text-sm font-medium text-gray-500">Price</dt>
-              <dd className="order-2 text-black text-xl font-semibold font-['Open Sans']">
+              <dd className="order-2 text-black font-semibold">
                 <div className="flex justify-center items-center">
                   {`${item.price} ETH`}
                   <img className="h-6" src="/images/small-eth.webp" alt="ether icon" />

@@ -61,7 +61,7 @@ const Shipment = () => {
             headers: { Authorization: `Bearer ${token}` }
         })
             .then(response => {
-                alert('Shipment deleted successfully');
+                toast.success("Shipment deleted successfully");
                 setShipments(shipments.filter(shipment => shipment.id !== id));
             })
             .catch(error => {
@@ -120,7 +120,7 @@ const Shipment = () => {
 
     return (
         <BaseLayout>
-            <div className="pb-16 pt-8 bg-white overflow-hidden min-h-screen">
+            <div className="pb-16 pt-8 bg-white overflow-hidden min-h-screen font-sans">
                 <div className="max-w-7xl mx-auto px-4 space-y-8 sm:px-6 lg:px-8">
                     <div className="p-4">
                         <div className="flex justify-between mb-4 gap-6">

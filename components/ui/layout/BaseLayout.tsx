@@ -1,6 +1,7 @@
 import { FunctionComponent } from "react";
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import Navbar from "../navbar";
+import Footer from "@ui/footer";
 interface Props {
     children: React.ReactNode;
 }
@@ -27,6 +28,7 @@ const BaseLayout: FunctionComponent<Props> = ({ children }) => {
                     </Helmet>
                     <Navbar />
                     {children}
+                    <Footer />
                 </div>
             </HelmetProvider>
         </>

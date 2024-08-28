@@ -34,10 +34,10 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-white">
+    <div className="min-h-screen flex items-center justify-center bg-white font-sans">
       <div className="max-w-md w-full space-y-8">
         <div>
-          <h2 className="mt-6 text-center font-extrabold text-gray-900 text-5xl font-['Italiana']">
+          <h2 className="mt-6 text-center text-gray-900 text-5xl font-italiana">
             Luxsy Admin
           </h2>
         </div>

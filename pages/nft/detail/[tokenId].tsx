@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import { NextPage } from 'next';
 import { useListedNfts } from '@hooks/web3';
 import { useWeb3 } from '@providers/web3';
+import { Open_Sans } from '@next/font/google';
 
 const ArtDetail: NextPage = () => {
   const { ethereum } = useWeb3();
@@ -51,7 +52,7 @@ const ArtDetail: NextPage = () => {
   return (
     <BaseLayout>
       <div>
-        <div className="py-4">
+        <div className="py-4 font-sans">
           <div className="container mx-auto px-4">
             {/* Section 1 */}
             <section className="grid grid-cols-12 gap-4 mb-8">
@@ -85,7 +86,6 @@ const ArtDetail: NextPage = () => {
                     }} */}
                     <button onClick={handlePopupToggle}
                       type="button" className="bg-black text-white px-4 py-2 rounded">Buy Now</button>
-                    <button className="bg-gray-300 text-black px-4 py-2 rounded">Make Collection Offer</button>
                   </div>
                 </div>
               </div>
@@ -93,40 +93,129 @@ const ArtDetail: NextPage = () => {
 
             {/* Section 2 */}
             <section className="mb-8">
-              <h2 className="text-xl font-bold mb-4">Description</h2>
-              <div className="text-gray-500">
-                {nft.meta.description}
+              <h2 className="text-xl font-bold mb-4 text-[#776B5D]">Description</h2>
+              <div className="text-gray-500 space-y-4">
+                <pre className="whitespace-pre-wrap font-sans">
+                  {nft.meta.description}
+                </pre>
               </div>
             </section>
 
             {/* Section 3 */}
             <section className="mb-8">
-              <h2 className="text-xl font-bold mb-4">Shipping</h2>
-              <p className="text-gray-500">
-                Lorem ipsum dolor sit amet consectetur. Massa ultrices sit orci imperdiet elementum sed netus velit. Pulvinar scelerisque enim ut vestibulum proin ornare. Aliquet pellentesque libero purus quis maecenas. Venenatis tristique net dolor sed velit porttitor volutpat sagittis potenti.
-                <br />
-                <br />
-                Leo adipiscing volutpat ultrices quam massa lacus. Sit dolor scelerisque commodo nam ultrices ornare faucibus. Et neque sapien eget mauris sed est ornare. Nisi velsera justo cras mauris enim dignissim nunc. Nunc porta fames euismod eget ut et null malesuada. Id suspendisse at eu id volutpat tellus diam morbi. Ttor sapien arcu sagittis aenean. Sit ipsum a rutrum sed. In leo quam vel eget id mauris amet euismod. Et nunc porta dictumst et ullamcorper. Id eget gravida est id et donec in dui ut. Pharetra arcu sed amet massa urna at viverra arcu et tellus est.
-              </p>
+              <h2 className="text-xl font-bold mb-4 text-[#776B5D]">Shipping</h2>
+              <div className="text-gray-500 space-y-4">
+                <p>
+                  At Luxsy, we understand that art collections go beyond the digital realm. That's why every NFT purchase on Luxsy comes with the delivery of the corresponding physical painting.
+                </p>
+
+                <h3 className="font-semibold">How Does the Shipping Process Work?</h3>
+
+                <div>
+                  <h4 className="font-bold">Trusted Courier Selection:</h4>
+                  <p>
+                    We partner with trusted and experienced couriers who specialize in handling art shipments. This ensures that your painting will arrive safely and in the best possible condition.
+                  </p>
+                </div>
+
+                <div>
+                  <h4 className="font-bold">Secure Packaging:</h4>
+                  <p>
+                    The physical painting will be carefully packaged using high-quality materials to protect the artwork during transit. We take great care to ensure that every package is prepared with attention to detail and safety.
+                  </p>
+                </div>
+
+                <div>
+                  <h4 className="font-bold">Shipment Tracking:</h4>
+                  <p>
+                    Once the physical painting is shipped, you will receive a tracking number that allows you to monitor the status of your shipment in real-time. You'll easily know when your painting is expected to arrive.
+                  </p>
+                </div>
+
+                <div>
+                  <h4 className="font-bold">Delivery Confirmation:</h4>
+                  <p>
+                    We will request a confirmation of receipt once the painting has been delivered to you. This is part of our commitment to ensuring that every purchase on Luxsy provides a satisfying experience.
+                  </p>
+                </div>
+
+                <div>
+                  <h4 className="font-bold">Shipping Time:</h4>
+                  <p>
+                    Shipping times may vary depending on your location and the type of courier service used. An estimated delivery time will be provided after the purchase process is completed. We always strive to ensure that the physical painting arrives in a timely manner.
+                  </p>
+                </div>
+
+                <div>
+                  <h4 className="font-bold">Customer Support:</h4>
+                  <p>
+                    If you have any questions or need assistance with your shipment, our customer support team is ready to help. You can reach out to us through the contact information provided on our website.
+                  </p>
+                </div>
+              </div>
             </section>
 
             {/* Section 4 */}
             <section className="mb-8">
-              <h2 className="text-xl font-bold mb-4">Packaging Art</h2>
-              <p className="text-gray-500">
-                Lorem ipsum dolor sit amet consectetur. Massa ultrices sit orci imperdiet elementum sed netus velit. Pulvinar scelerisque enim ut vestibulum proin ornare. Aliquet pellentesque libero purus quis maecenas. Venenatis tristique net dolor sed velit porttitor volutpat sagittis potenti.
-                <br />
-                <br />
-                Leo adipiscing volutpat ultrices quam massa lacus. Sit dolor scelerisque commodo nam ultrices ornare faucibus. Et neque sapien eget mauris sed est ornare. Nisi velsera justo cras mauris enim dignissim nunc. Nunc porta fames euismod eget ut et null malesuada. Id suspendisse at eu id volutpat tellus diam morbi. Ttor sapien arcu sagittis aenean. Sit ipsum a rutrum sed. In leo quam vel eget id mauris amet euismod. Et nunc porta dictumst et ullamcorper. Id eget gravida est id et donec in dui ut. Pharetra arcu sed amet massa urna at viverra arcu et tellus est.
-              </p>
+              <h2 className="text-xl font-bold mb-4 text-[#776B5D]">Packaging Art</h2>
+              <div className="text-gray-500 space-y-4">
+                <p>
+                  At Luxsy, we understand the value of each piece of art you own. That's why we ensure that every physical painting you purchase through our platform is packaged with the utmost care, using high-quality materials.
+                </p>
+
+                <h3 className="font-semibold">Packaging Process</h3>
+
+                <div>
+                  <h4 className="font-bold">High-Quality Packaging Materials:</h4>
+                  <p>
+                    We use only the finest packaging materials, including sturdy cardboard, bubble wrap, and specialized corner protectors to keep the painting safe during transit. Each packaging component is carefully selected to provide maximum protection.
+                  </p>
+                </div>
+
+                <div>
+                  <h4 className="font-bold">Layered Packaging:</h4>
+                  <p>
+                    Your painting will be packaged in layers to ensure protection from scratches, impacts, or weather conditions that may occur during shipping. These layers include surface protection, cushioning, and additional protective boxes.
+                  </p>
+                </div>
+
+                <div>
+                  <h4 className="font-bold">Handled with Special Care:</h4>
+                  <p>
+                    Our experienced team, skilled in handling artwork, will ensure that each painting is packaged to the highest standards, preserving the beauty and integrity of the artwork until it reaches your hands.
+                  </p>
+                </div>
+
+                <div>
+                  <h4 className="font-bold">Eco-Friendly Packaging:</h4>
+                  <p>
+                    Along with a focus on safety, we are also mindful of the environment. We use eco-friendly, recyclable packaging materials without compromising on protective quality.
+                  </p>
+                </div>
+
+                <div>
+                  <h4 className="font-bold">Our Goal:</h4>
+                  <p>
+                    Our goal is to ensure that every physical painting you purchase on Luxsy arrives in perfect condition so that you can enjoy the beauty of the artwork without any worries.
+                  </p>
+                </div>
+
+                <div>
+                  <h4 className="font-bold">Customer Support:</h4>
+                  <p>
+                    If you have any questions or concerns regarding the packaging, our customer support team is here to assist you. We are committed to making sure your shopping experience at Luxsy is satisfying from start to finish.
+                  </p>
+                </div>
+              </div>
             </section>
+
           </div>
         </div>
       </div>
 
       {/* Main modal */}
       {isPopupVisible && (
-        <div tabIndex="-1" aria-hidden="true" className={`fixed top-0 right-0 left-0 z-50 flex justify-center items-center w-full h-full bg-black bg-opacity-50 transition-opacity duration-300 ${isPopupVisible ? 'opacity-100' : 'opacity-0'}`}>
+        <div tabIndex="-1" aria-hidden="true" className={`font-sans fixed top-0 right-0 left-0 z-50 flex justify-center items-center w-full h-full bg-black bg-opacity-50 transition-opacity duration-300 ${isPopupVisible ? 'opacity-100' : 'opacity-0'}`}>
           <div className={`relative p-4 w-full max-w-md max-h-full transition-transform duration-300 transform ${isPopupVisible ? 'translate-y-0' : 'translate-y-[-100px]'
             }`}>
             {/* Modal content */}

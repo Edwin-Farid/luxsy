@@ -7,6 +7,7 @@ import { Switch } from '@headlessui/react'
 import Link from 'next/link'
 import { NftMeta, PinataRes } from '@_types/nft';
 import axios from 'axios';
+import { useWeb3 } from '@providers/web3';
 import { ethers } from 'ethers';
 import { toast } from "react-toastify";
 import { useNetwork } from '@hooks/web3';
@@ -16,6 +17,7 @@ const ALLOWED_FIELDS = ["name", "artistName", "description", "image", "attribute
 
 
 const NftCreate: NextPage = () => {
+  const { ethereum, contract } = useWeb3();
   const { network } = useNetwork();
   const [nftURI, setNftURI] = useState("");
   const [price, setPrice] = useState("");
@@ -126,15 +128,6 @@ const NftCreate: NextPage = () => {
   }
 
   const creatNft = async () => {
-
-    // await toast.promise(
-    //   new Promise((res) => setTimeout(res, 2000)), {
-    //   pending: "Minting NFT Token",
-    //   success: "Nft created!",
-    //   error: "minting Error"
-    // }
-    // );
-
     try {
       const nftRes = await axios.get(nftURI, {
         headers: { "Accept": "text/plain" }
@@ -196,7 +189,7 @@ const NftCreate: NextPage = () => {
   }
   return (
     <BaseLayout>
-      <div className="pb-16 pt-8 bg-white overflow-hidden min-h-screen">
+      <div className="pb-16 pt-8 bg-white overflow-hidden min-h-screen font-sans">
         <div className="max-w-7xl mx-auto px-4 space-y-8 sm:px-6 lg:px-8">
           <div className="py-4">
             {!nftURI &&

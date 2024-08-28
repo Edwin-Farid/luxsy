@@ -43,7 +43,7 @@ export default function Navbar() {
               {/* menu navbar */}
               <div className="flex-1 flex items-center justify-between">
                 {/* Left section with Home and NFT */}
-                <div className="flex space-x-4 hidden lg:block md:block sm:hidden sm:ml-6">
+                <div className="flex space-x-4 hidden lg:block md:block sm:hidden sm:ml-6 font-sans">
                   {/* <div className="items-center hidden lg:block md:block sm:hidden sm:ml-6"> */}
 
                   <a href="/" className="text-gray-800 hover:text-[#776B5D] px-3 py-2 rounded-md text-sm font-medium">
@@ -56,11 +56,11 @@ export default function Navbar() {
 
                 {/* Center section with logo */}
                 <div className="items-center hidden lg:block md:block sm:hidden sm:ml-6">
-                  <span className="text-black text-5xl font-['Italiana']">Luxsy</span>
+                  <span className="text-5xl">Luxsy</span>
                 </div>
 
                 {/* profile */}
-                <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+                <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0 font-sans">
                   {/* <a href="#" className="text-gray-800 hover:text-black">
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h18l-2 13H5L3 3z" />

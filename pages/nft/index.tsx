@@ -35,7 +35,7 @@ const Home: NextPage = () => {
                         >
                             <option value="">All Types</option>
                             <option value="abstract">Abstract</option>
-                            <option value="realisme">Realism</option>
+                            <option value="realisme">Realisme</option>
                         </select>
 
                         <select
@@ -46,12 +46,12 @@ const Home: NextPage = () => {
                             <option value="">All Paints</option>
                             <option value="Pen on Canvas">Pen on Canvas</option>
                             <option value="Pencil on Sketchbook">Pencil on Sketchbook</option>
-                            <option value="Watercolor">Watercolor</option>
-                            <option value="Acrilict">Acrilict</option>
-                            <option value="Sketch">Sketch</option>
-                            <option value="Kubisme">Kubisme</option>
-                            <option value="Surealisme">Surealisme</option>
-                            <option value="Oil Paste in Canvas">Oil Paste in Canvas</option>
+                            <option value="Watercolor on Paper">Watercolor on Paper</option>
+                            <option value="Acrylic Paint on Canvas">Acrylic Paint on Canvas</option>
+                            <option value="Ink on Paper">Ink on Paper</option>
+                            <option value="Tempera on Wood Panel">Tempera on Wood Panel</option>
+                            <option value="Gouache on Paper">Gouache on Paper</option>
+                            <option value="Oil Paste on Canvas">Oil Paste on Canvas</option>
                         </select>
                     </div>
                 </div>
@@ -84,29 +84,6 @@ const Home: NextPage = () => {
                     </div>
                 </div>
             </div>
-
-            <div className="w-[1440px] h-[626px] relative">
-                <div className="w-[1440px] h-[626px] left-0 top-0 absolute bg-stone-500" />
-                <div className="w-[314px] h-[164px] left-[1022px] top-[88px] absolute flex-col justify-start items-end gap-8 inline-flex">
-                    <div className="text-white text-5xl font-normal font-['Italiana']">Luxsy</div>
-                    <div className="w-[314px] text-justify text-white text-xs font-normal font-['Inter'] tracking-wide">Lorem ipsum dolor sit amet consectetur. Morbi tristique quis diam pellentesque proin donec. Euismod pretium gravida in nulla aliquam. Diam condimentum mi arcu elit sit. Accumsan eget morbi quam ante.</div>
-                </div>
-                <div className="w-[786px] h-[441px] left-[145px] top-[112px] absolute justify-start items-start gap-[244px] inline-flex">
-                    <div className="flex-col justify-start items-start gap-[42px] inline-flex">
-                        <div className="text-white text-xs font-normal font-['Inter'] tracking-wide">Help</div>
-                        <div className="text-white text-xs font-normal font-['Inter'] leading-[48px]">FAQ<br />Product<br />Comunity</div>
-                    </div>
-                    <div className="flex-col justify-start items-start gap-[42px] inline-flex">
-                        <div className="text-white text-xs font-normal font-['Inter'] tracking-wide">Service</div>
-                        <div className="text-white text-xs font-normal font-['Inter'] leading-[48px]">Realism<br />Kubisme<br />Romantisme<br />Abstrack</div>
-                    </div>
-                    <div className="flex-col justify-start items-start gap-[42px] inline-flex">
-                        <div className="text-white text-xs font-normal font-['Inter'] tracking-wide">Learn</div>
-                        <div className="text-white text-xs font-normal font-['Inter'] leading-[48px]">What is an NFT?<br />How to buy an NFT<br />What are NFT drops?<br />How to sell an NFT<br />What is a crypto wallet?<br />What is cryptocurrency?<br />What are blockchain gas fees?<br />What is a blockchain?</div>
-                    </div>
-                </div>
-            </div>
-
         </BaseLayout>
     )
 }

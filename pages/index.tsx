@@ -29,28 +29,28 @@ const Home: NextPage = () => {
               <div className="text-black text-xl font-light font-['Open Sans'] tracking-wide">Pencil on Sketchbook</div>
             </div>
             <div className="w-full sm:w-[278px] h-[323px] flex-col justify-start items-center gap-[18px] inline-flex">
-              <img className="w-full h-[278px]" src="/images/category/watercolor.webp" alt="Watercolor" />
-              <div className="text-black text-xl font-light font-['Open Sans'] tracking-wide">Watercolor</div>
+              <img className="w-full h-[278px]" src="/images/category/watercolor.webp" alt="Watercolor on Paper" />
+              <div className="text-black text-xl font-light font-['Open Sans'] tracking-wide">Watercolor on Paper</div>
             </div>
             <div className="w-full sm:w-[278px] h-[323px] flex-col justify-start items-center gap-[18px] inline-flex">
-              <img className="w-full h-[278px]" src="/images/category/acrilict.webp" alt="Acrilict" />
-              <div className="text-black text-xl font-light font-['Open Sans'] tracking-wide">Acrilict</div>
+              <img className="w-full h-[278px]" src="/images/category/acrilict.webp" alt="Acrylic Paint on Canvas" />
+              <div className="text-black text-xl font-light font-['Open Sans'] tracking-wide">Acrylic Paint on Canvas</div>
             </div>
             <div className="w-full sm:w-[278px] h-[323px] flex-col justify-start items-center gap-[18px] inline-flex">
-              <img className="w-full h-[278px]" src="/images/category/sketch.webp" alt="Sketch" />
-              <div className="text-black text-xl font-light font-['Open Sans'] tracking-wide">Sketch</div>
+              <img className="w-full h-[278px]" src="/images/category/sketch.webp" alt="Ink on Paper" />
+              <div className="text-black text-xl font-light font-['Open Sans'] tracking-wide">Ink on Paper</div>
             </div>
             <div className="w-full sm:w-[278px] h-[323px] flex-col justify-start items-center gap-[18px] inline-flex">
-              <img className="w-full h-[278px]" src="/images/category/kubisme.webp" alt="Kubisme" />
-              <div className="text-black text-xl font-light font-['Open Sans'] tracking-wide">Kubisme</div>
+              <img className="w-full h-[278px]" src="/images/category/kubisme.webp" alt="Tempera on Wood Panel" />
+              <div className="text-black text-xl font-light font-['Open Sans'] tracking-wide">Tempera on Wood Panel</div>
             </div>
             <div className="w-full sm:w-[278px] h-[323px] flex-col justify-start items-center gap-[18px] inline-flex">
-              <img className="w-full h-[278px]" src="/images/category/surealisme.webp" alt="Surealisme" />
-              <div className="text-black text-xl font-light font-['Open Sans'] tracking-wide">Surealisme</div>
+              <img className="w-full h-[278px]" src="/images/category/surealisme.webp" alt="Gouache on Paper" />
+              <div className="text-black text-xl font-light font-['Open Sans'] tracking-wide">Gouache on Paper</div>
             </div>
             <div className="w-full sm:w-[278px] h-[323px] flex-col justify-start items-center gap-[18px] inline-flex">
-              <img className="w-full h-[278px]" src="/images/category/oil-paste-in-canvas.webp" alt="Oil Paste in Canvas" />
-              <div className="text-black text-xl font-light font-['Open Sans'] tracking-wide">Oil Paste in Canvas</div>
+              <img className="w-full h-[278px]" src="/images/category/oil-paste-in-canvas.webp" alt="Oil Paste on Canvas" />
+              <div className="text-black text-xl font-light font-['Open Sans'] tracking-wide">Oil Paste on Canvas</div>
             </div>
           </div>
 
@@ -226,10 +226,7 @@ const Home: NextPage = () => {
         </div>
       </div>
 
-      <div className="relative bg-gray-50 pt-16 pb-20 px-4 sm:px-6 lg:pt-24 lg:pb-28 lg:px-8">
-        <div className="absolute inset-0">
-          <div className="bg-white h-1/3 sm:h-2/3" />
-        </div>
+      <div className="relative bg-white pt-16 pb-20 px-4 sm:px-6 lg:pt-24 lg:pb-28 lg:px-8">
         <div className="relative">
           <div className="text-center">
             <h2 className="text-3xl tracking-tight font-extrabold text-gray-900 sm:text-4xl">Amazing Creatures NFTs</h2>
@@ -264,29 +261,6 @@ const Home: NextPage = () => {
           </div>
         </div>
       </div>
-
-      <div className="w-full h-[626px] relative">
-        <div className="w-full h-[626px] left-0 top-0 absolute bg-stone-500" />
-        <div className="w-[314px] h-[164px] left-[1022px] top-[88px] absolute flex-col justify-start items-end gap-8 inline-flex">
-          <div className="text-white text-5xl font-normal font-['Italiana']">Luxsy</div>
-          <div className="w-[314px] text-justify text-white text-xs font-normal font-['Inter'] tracking-wide">Lorem ipsum dolor sit amet consectetur. Morbi tristique quis diam pellentesque proin donec. Euismod pretium gravida in nulla aliquam. Diam condimentum mi arcu elit sit. Accumsan eget morbi quam ante.</div>
-        </div>
-        <div className="w-[786px] h-[441px] left-[145px] top-[112px] absolute justify-start items-start gap-[244px] inline-flex">
-          <div className="flex-col justify-start items-start gap-[42px] inline-flex">
-            <div className="text-white text-xs font-normal font-['Inter'] tracking-wide">Help</div>
-            <div className="text-white text-xs font-normal font-['Inter'] leading-[48px]">FAQ<br />Product<br />Comunity</div>
-          </div>
-          <div className="flex-col justify-start items-start gap-[42px] inline-flex">
-            <div className="text-white text-xs font-normal font-['Inter'] tracking-wide">Service</div>
-            <div className="text-white text-xs font-normal font-['Inter'] leading-[48px]">Realism<br />Kubisme<br />Romantisme<br />Abstrack</div>
-          </div>
-          <div className="flex-col justify-start items-start gap-[42px] inline-flex">
-            <div className="text-white text-xs font-normal font-['Inter'] tracking-wide">Learn</div>
-            <div className="text-white text-xs font-normal font-['Inter'] leading-[48px]">What is an NFT?<br />How to buy an NFT<br />What are NFT drops?<br />How to sell an NFT<br />What is a crypto wallet?<br />What is cryptocurrency?<br />What are blockchain gas fees?<br />What is a blockchain?</div>
-          </div>
-        </div>
-      </div>
-
     </BaseLayout>
   )
 }
