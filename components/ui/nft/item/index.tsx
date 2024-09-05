@@ -6,35 +6,34 @@ import { useRouter } from 'next/router';
 
 type NftItemProps = {
   item: Nft;
-  buyNft: (token: number, value: number) => Promise<void>
 }
 
 function shortifyAddress(address: string) {
   return `0x****${address.slice(-4)}`
 }
 
-const NftItem: FunctionComponent<NftItemProps> = ({ item, buyNft }) => {
+const NftItem: FunctionComponent<NftItemProps> = (item) => {
   const router = useRouter();
 
-  const handleImageClick = (tokenId) => {
+  const handleImageClick = (tokenId: number) => {
     router.push(`/nft/detail/${tokenId}`);
   };
-  
+
   return (
     <>
       <div className="flex-shrink-0">
         <img
           className={`h-full w-full object-cover`}
-          src={item.meta.image}
+          src={item.item.meta.image}
           alt="New NFT"
-          key={item.tokenId}
-          onClick={() => handleImageClick(item.tokenId)}
+          key={item.item.tokenId}
+          onClick={() => handleImageClick(item.item.tokenId)}
         />
       </div>
       <div className="flex-1 bg-white p-6 flex flex-col justify-between font-sans">
         <div className="flex-1">
           <div className="block mt-2">
-            <p className="text-black text-xl font-semibold">{item.meta.name}</p>
+            <p className="text-black text-xl font-semibold">{item.item.meta.name}</p>
           </div>
         </div>
 
@@ -44,7 +43,7 @@ const NftItem: FunctionComponent<NftItemProps> = ({ item, buyNft }) => {
               <dt className="order-1 text-sm font-medium text-gray-500">Price</dt>
               <dd className="order-2 text-black font-semibold">
                 <div className="flex justify-center items-center">
-                  {`${item.price} ETH`}
+                  {`${item.item.price} ETH`}
                   <img className="h-6" src="/images/small-eth.webp" alt="ether icon" />
                 </div>
               </dd>

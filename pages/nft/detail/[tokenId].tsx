@@ -5,13 +5,14 @@ import { NextPage } from 'next';
 import { useListedNfts } from '@hooks/web3';
 import { useWeb3 } from '@providers/web3';
 import { Open_Sans } from '@next/font/google';
+import { Nft } from '@_types/nft';
 
 const ArtDetail: NextPage = () => {
   const { ethereum } = useWeb3();
   const router = useRouter();
   const { tokenId } = router.query;
   const { nfts } = useListedNfts();
-  const [nft, setNft] = useState(null);
+  const [nft, setNft] = useState<Nft | null>(null);
   const [isPopupVisible, setIsPopupVisible] = useState(false);
   const [shipment, setShipments] = useState({
     address: "",
@@ -22,8 +23,7 @@ const ArtDetail: NextPage = () => {
   useEffect(() => {
     if (tokenId && nfts.data) {
       const selectedNft = nfts.data.find(nft => nft.tokenId === Number(tokenId));
-      console.log(selectedNft);
-      setNft(selectedNft);
+      setNft(selectedNft ?? null);
     }
   }, [tokenId, nfts.data]);
 
@@ -106,7 +106,7 @@ const ArtDetail: NextPage = () => {
               <h2 className="text-xl font-bold mb-4 text-[#776B5D]">Shipping</h2>
               <div className="text-gray-500 space-y-4">
                 <p>
-                  At Luxsy, we understand that art collections go beyond the digital realm. That's why every NFT purchase on Luxsy comes with the delivery of the corresponding physical painting.
+                  At Luxsy, we understand that art collections go beyond the digital realm. That`&apos;`s why every NFT purchase on Luxsy comes with the delivery of the corresponding physical painting.
                 </p>
 
                 <h3 className="font-semibold">How Does the Shipping Process Work?</h3>
@@ -128,7 +128,7 @@ const ArtDetail: NextPage = () => {
                 <div>
                   <h4 className="font-bold">Shipment Tracking:</h4>
                   <p>
-                    Once the physical painting is shipped, you will receive a tracking number that allows you to monitor the status of your shipment in real-time. You'll easily know when your painting is expected to arrive.
+                    Once the physical painting is shipped, you will receive a tracking number that allows you to monitor the status of your shipment in real-time. You`&apos;`ll easily know when your painting is expected to arrive.
                   </p>
                 </div>
 
@@ -160,7 +160,7 @@ const ArtDetail: NextPage = () => {
               <h2 className="text-xl font-bold mb-4 text-[#776B5D]">Packaging Art</h2>
               <div className="text-gray-500 space-y-4">
                 <p>
-                  At Luxsy, we understand the value of each piece of art you own. That's why we ensure that every physical painting you purchase through our platform is packaged with the utmost care, using high-quality materials.
+                  At Luxsy, we understand the value of each piece of art you own. That`&apos;`s why we ensure that every physical painting you purchase through our platform is packaged with the utmost care, using high-quality materials.
                 </p>
 
                 <h3 className="font-semibold">Packaging Process</h3>
@@ -215,7 +215,7 @@ const ArtDetail: NextPage = () => {
 
       {/* Main modal */}
       {isPopupVisible && (
-        <div tabIndex="-1" aria-hidden="true" className={`font-sans fixed top-0 right-0 left-0 z-50 flex justify-center items-center w-full h-full bg-black bg-opacity-50 transition-opacity duration-300 ${isPopupVisible ? 'opacity-100' : 'opacity-0'}`}>
+        <div tabIndex={-1} aria-hidden="true" className={`font-sans fixed top-0 right-0 left-0 z-50 flex justify-center items-center w-full h-full bg-black bg-opacity-50 transition-opacity duration-300 ${isPopupVisible ? 'opacity-100' : 'opacity-0'}`}>
           <div className={`relative p-4 w-full max-w-md max-h-full transition-transform duration-300 transform ${isPopupVisible ? 'translate-y-0' : 'translate-y-[-100px]'
             }`}>
             {/* Modal content */}

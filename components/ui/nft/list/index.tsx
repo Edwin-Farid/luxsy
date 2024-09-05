@@ -12,9 +12,6 @@ const NftList: FunctionComponent<NftListProps> = ({ typeFilter, paintFilter }) =
   const { nfts } = useListedNfts();
 
   useEffect(() => {
-    // console.log("Type Filter:", typeFilter);
-    // console.log("Paint Filter:", paintFilter);
-    // console.log("NFT Data:", nfts.data);
   }, [typeFilter, paintFilter, nfts.data]);
 
   const filteredNfts = nfts.data?.filter(nft => {
@@ -24,7 +21,6 @@ const NftList: FunctionComponent<NftListProps> = ({ typeFilter, paintFilter }) =
   });
 
   useEffect(() => {
-    // console.log("Filtered NFTs:", filteredNfts);
   }, [filteredNfts]);
 
   return (
@@ -33,7 +29,6 @@ const NftList: FunctionComponent<NftListProps> = ({ typeFilter, paintFilter }) =
         <div key={nft.tokenId} className="flex flex-col rounded-lg shadow-lg overflow-hidden">
           <NftItem
             item={nft}
-            buyNft={nfts.buyNft}
           />
         </div>
       )}

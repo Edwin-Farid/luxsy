@@ -13,7 +13,7 @@ const Home: NextPage = () => {
 
   return (
     <BaseLayout>
-      <img className="w-full h-[550px]" src="/images/hero/hero.webp" />
+      <img className="w-full h-[550px]" src="/images/hero/hero.webp" alt='Hero' />
 
       <div className="py-16 bg-white overflow-hidden min-h-screen">
         <div className="max-w-7xl mx-auto px-4 space-y-8 sm:px-6 lg:px-8">
@@ -61,7 +61,7 @@ const Home: NextPage = () => {
         </div>
       </div>
 
-      <img className="w-full h-[788px]" src="/images/hero/statue.webp" />
+      <img className="w-full h-[788px]" src="/images/hero/statue.webp" alt='Hero Statue' />
 
       <div className="py-16 bg-white overflow-hidden min-h-screen">
         <div className="max-w-7xl mx-auto px-4 space-y-8 sm:px-6 lg:px-8">
@@ -114,7 +114,6 @@ const Home: NextPage = () => {
                 <div key={nft.meta.image} className="flex flex-col rounded-lg shadow-lg overflow-hidden">
                   <NftItem
                     item={nft}
-                    buyNft={nfts.buyNft}
                   />
                 </div>
               )}
@@ -146,7 +145,7 @@ const Home: NextPage = () => {
         </div>
       </div>
 
-      <img className="w-full h-[788px]" src="/images/hero/abstrack.webp" />
+      <img className="w-full h-[788px]" src="/images/hero/abstrack.webp" alt='hero abstractk' />
 
       <div className="py-16 bg-white overflow-hidden min-h-screen">
         <div className="max-w-7xl mx-auto px-4 space-y-8 sm:px-6 lg:px-8">
@@ -199,7 +198,6 @@ const Home: NextPage = () => {
                 <div key={nft.meta.image} className="flex flex-col rounded-lg shadow-lg overflow-hidden">
                   <NftItem
                     item={nft}
-                    buyNft={nfts.buyNft}
                   />
                 </div>
               )}
@@ -237,7 +235,7 @@ const Home: NextPage = () => {
           <div className="py-16 bg-white overflow-hidden min-h-screen">
             <div className="max-w-7xl mx-auto px-4 space-y-8 sm:px-6 lg:px-8">
               {network.isConnectedToNetwork ?
-                <NftList /> :
+                <NftList typeFilter={''} paintFilter={''} /> :
                 <div className="rounded-md bg-yellow-50 p-4 mt-10">
                   <div className="flex">
                     <div className="flex-shrink-0">

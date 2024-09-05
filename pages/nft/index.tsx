@@ -12,17 +12,17 @@ const Home: NextPage = () => {
     const [typeFilter, setTypeFilter] = useState('');
     const [paintFilter, setPaintFilter] = useState('');
 
-    const handleTypeChange = (event) => {
+    const handleTypeChange = (event: any) => {
         setTypeFilter(event.target.value);
     };
 
-    const handlePaintChange = (event) => {
+    const handlePaintChange = (event: any) => {
         setPaintFilter(event.target.value);
     };
 
     return (
         <BaseLayout>
-            <img className="w-full h-[550px]" src="/images/hero/hero2.webp" />
+            <img className="w-full h-[550px]" src="/images/hero/hero2.webp" alt='hero' />
 
             <div className="relative bg-white pb-20 px-4 sm:px-6 lg:pb-28 lg:px-8">
                 {/* dropdown filter */}

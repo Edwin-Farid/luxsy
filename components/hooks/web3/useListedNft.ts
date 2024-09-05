@@ -84,8 +84,17 @@ export const hookFactory: ListedNftsHookFactory = ({contract}) => () => {
           });
 
       router.push(`/`);
-    } catch (e: any) {
-      console.error(e.message);
+    } catch (e: any){
+    const reason = e?.data?.data?.reason || e.message; 
+
+    toast.promise(
+        new Promise((_, reject) => reject(e)), 
+        {
+            pending: reason, 
+            success: "Nft is yours! Go to profile page",
+            error: reason, 
+        }
+    );
     }
   },[_contract])
   return {

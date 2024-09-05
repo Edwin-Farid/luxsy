@@ -7,7 +7,8 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { NftMarketContract } from "@_types/nftMarketContract";
 
 const NETWORKS = {
-    "5777" : "Ganache"
+    "5777" : "Ganache",
+    "11155111" : "Sepolia",
 }
 
 type NETWORK = typeof contract.networks;

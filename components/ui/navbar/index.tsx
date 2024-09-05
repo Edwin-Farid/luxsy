@@ -5,6 +5,7 @@ import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import ActiveLink from '../link';
 import { useAccount, useNetwork } from '@hooks/web3';
 import Walletbar from './Walletbar';
+import Link from 'next/link'; // Pastikan Anda mengimpor Link
 
 const navigation = [
   { name: 'Home', href: '/', current: true },
@@ -46,12 +47,12 @@ export default function Navbar() {
                 <div className="flex space-x-4 hidden lg:block md:block sm:hidden sm:ml-6 font-sans">
                   {/* <div className="items-center hidden lg:block md:block sm:hidden sm:ml-6"> */}
 
-                  <a href="/" className="text-gray-800 hover:text-[#776B5D] px-3 py-2 rounded-md text-sm font-medium">
+                  <Link href="/" className="text-gray-800 hover:text-[#776B5D] px-3 py-2 rounded-md text-sm font-medium">
                     Home
-                  </a>
-                  <a href="/nft" className="text-gray-800 hover:text-[#776B5D] px-3 py-2 rounded-md text-sm font-medium">
+                  </Link>
+                  <Link href="/nft" className="text-gray-800 hover:text-[#776B5D] px-3 py-2 rounded-md text-sm font-medium">
                     NFT
-                  </a>
+                  </Link>
                 </div>
 
                 {/* Center section with logo */}

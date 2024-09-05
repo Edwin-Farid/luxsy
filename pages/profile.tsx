@@ -209,7 +209,7 @@ const Profile: NextPage = () => {
 
                 {/* Main modal */}
                 {isPopupVisible && (
-                  <div tabIndex="-1" aria-hidden="true" className={`fixed top-0 right-0 left-0 z-50 flex justify-center items-center w-full h-full bg-black bg-opacity-50 transition-opacity duration-300 ${isPopupVisible ? 'opacity-100' : 'opacity-0'}`}>
+                  <div tabIndex={-1} aria-hidden="true" className={`fixed top-0 right-0 left-0 z-50 flex justify-center items-center w-full h-full bg-black bg-opacity-50 transition-opacity duration-300 ${isPopupVisible ? 'opacity-100' : 'opacity-0'}`}>
                     <div className={`relative p-4 w-full max-w-md max-h-full transition-transform duration-300 transform ${isPopupVisible ? 'translate-y-0' : 'translate-y-[-100px]'
                       }`}>
                       {/* Modal content */}
