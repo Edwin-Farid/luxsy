@@ -17,8 +17,8 @@ const Login = () => {
     setError('');
 
     try {
-      const response = await axios.post('http://127.0.0.1:8000/api/login', { email, password });
-      console.log('Login successful', response.data);
+      const url = process.env.NODE_ENV === "production" ? process.env.LUXSY_ADMIN_URL : "http://127.0.0.1:8000/api";
+      const response = await axios.post(url + '/login', { email, password });
 
       // Save the token in sessionStorage
       sessionStorage.setItem('token', response.data.data.token);

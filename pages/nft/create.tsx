@@ -133,8 +133,6 @@ const NftCreate: NextPage = () => {
         headers: { "Accept": "text/plain" }
       });
       const content = nftRes.data;
-      console.log(content);
-      console.log(ALLOWED_FIELDS);
 
       Object.keys(content).forEach(key => {
         if (!ALLOWED_FIELDS.includes(key)) {
