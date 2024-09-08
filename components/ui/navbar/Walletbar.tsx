@@ -1,8 +1,7 @@
-/* eslint-disable @next/next/no-img-element */
-
 import { Menu } from "@headlessui/react";
 import Link from "next/link";
-import { FunctionComponent } from "react";
+import { FunctionComponent, useEffect } from "react";
+import { useRouter } from 'next/router';
 
 type WalletbarProps = {
   isLoading: boolean;
@@ -22,13 +21,23 @@ const Walletbar: FunctionComponent<WalletbarProps> = ({
   account
 }) => {
 
+  const router = useRouter();
+  const token = typeof window !== 'undefined' ? sessionStorage.getItem('token') : null;
+
+  useEffect(() => {
+    // Only run this on client-side
+    if (typeof window !== 'undefined' && !token && router.pathname === '/nft/create') {
+      router.push('/');
+    }
+  }, [token, router]);
+
   if (isLoading) {
     return (
       <div>
         <button
-          onClick={() => {}}
+          onClick={() => { }}
           type="button"
-          className="inline-flex items-center px-3 py-1.5 border border-transparent text-xs font-medium rounded-full shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+          className="inline-flex items-center px-3 py-1.5 border border-transparent text-xs font-medium rounded-full shadow-sm text-white bg-[#776B5D] hover:bg-[#4F473E] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
         >
           Loading ...
         </button>
@@ -44,7 +53,7 @@ const Walletbar: FunctionComponent<WalletbarProps> = ({
             <span className="sr-only">Open user menu</span>
             <img
               className="h-8 w-8 rounded-full"
-              src="/images/default_user_image.png"
+              src="/images/default_profile.png"
               alt=""
             />
           </Menu.Button>
@@ -69,9 +78,34 @@ const Walletbar: FunctionComponent<WalletbarProps> = ({
                   Profile
                 </a>
               </Link>
-            
             )}
           </Menu.Item>
+          {token && (
+            <Menu.Item>
+              {({ active }) => (
+                <Link legacyBehavior href="/nft/create">
+                  <a
+                    className={classNames(active ? 'bg-gray-100' : '', 'block px-4 pb-2 text-sm text-gray-700')}
+                  >
+                    Create NFT
+                  </a>
+                </Link>
+              )}
+            </Menu.Item>
+          )}
+          {token && (
+            <Menu.Item>
+              {({ active }) => (
+                <Link legacyBehavior href="/shipment">
+                  <a
+                    className={classNames(active ? 'bg-gray-100' : '', 'block px-4 pb-2 text-sm text-gray-700')}
+                  >
+                    Shipment
+                  </a>
+                </Link>
+              )}
+            </Menu.Item>
+          )}
         </Menu.Items>
       </Menu>
     )
@@ -85,7 +119,7 @@ const Walletbar: FunctionComponent<WalletbarProps> = ({
             connect()
           }}
           type="button"
-          className="inline-flex items-center px-3 py-1.5 border border-transparent text-xs font-medium rounded-full shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+          className="inline-flex items-center px-3 py-1.5 border border-transparent text-xs font-medium rounded-full shadow-sm text-white bg-[#776B5D] hover:bg-[#4F473E] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
         >
           Connect Wallet
         </button>
@@ -96,10 +130,10 @@ const Walletbar: FunctionComponent<WalletbarProps> = ({
       <div>
         <button
           onClick={() => {
-            window.open ('https://metamask.io', '_ blank');
+            window.open('https://metamask.io', '_ blank');
           }}
           type="button"
-          className="inline-flex items-center px-3 py-1.5 border border-transparent text-xs font-medium rounded-full shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+          className="inline-flex items-center px-3 py-1.5 border border-transparent text-xs font-medium rounded-full shadow-sm text-white bg-[#776B5D] hover:bg-[#4F473E] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
         >
           No Wallet
         </button>

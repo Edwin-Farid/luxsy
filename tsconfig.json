@@ -25,6 +25,6 @@
       "@_types/*": ["types/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "pages/nft/detail/[tokenId].tsx", "pages/nft/detail/[tokenId].tsx"],
   "exclude": ["node_modules"]
 }

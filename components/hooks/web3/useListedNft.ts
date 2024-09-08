@@ -5,15 +5,18 @@ import { ethers } from "ethers";
 import { useCallback } from "react";
 import { toast } from "react-toastify";
 import useSWR from "swr";
+import { useRouter } from 'next/router';
+import axios from 'axios';
 
 type UseListedNftsResponse = {
-  buyNft: (token: number, value: number) => Promise<void>
+  buyNft: (token: number, value: number,owner: String, artName: String,  address: String, postalCode: number) => Promise<void>
 }
 type ListedNftsHookFactory = CryptoHookFactory<Nft[], UseListedNftsResponse>
 
 export type UseListedNftsHook = ReturnType<ListedNftsHookFactory>
 
 export const hookFactory: ListedNftsHookFactory = ({contract}) => () => {
+  const router = useRouter();
   const {data,...swr} = useSWR(
     contract ? "web3/useListedNfts" : null,
     async () => {
@@ -24,8 +27,9 @@ export const hookFactory: ListedNftsHookFactory = ({contract}) => () => {
           const item  = coreNfts[i];
           const tokenURI = await contract!.tokenURI(item.tokenId);
           const metaRes = await fetch(tokenURI);
+          
           const meta = await metaRes.json();
-
+          
           nfts.push({
             price: parseFloat (ethers.utils.formatEther(item.price)),
             tokenId: item.tokenId.toNumber(),
@@ -40,7 +44,7 @@ export const hookFactory: ListedNftsHookFactory = ({contract}) => () => {
   )
   
   const _contract = contract;
-  const buyNft = useCallback (async (tokenId: number, value: number) => {
+  const buyNft = useCallback (async (tokenId: number, value: number, owner: String, artName: String, address: String, postalCode: number) => {
     try{
       const result = await _contract!.buyNft(
         tokenId,{
@@ -56,9 +60,41 @@ export const hookFactory: ListedNftsHookFactory = ({contract}) => () => {
         }
        );
 
-      alert("You have bought Nft.See profile page")
-    } catch (e: any) {
-      console.error(e.message);
+      alert("You have bought Nft.See profile page");
+
+      const postData = {
+        tokenId,
+        artName,
+        price: value,
+        owner,
+        address,
+        postalCode,
+      };
+
+      const token = sessionStorage.getItem('token');
+      axios.post(`http://127.0.0.1:8000/api/shipment/`, postData, {
+          headers: { Authorization: `Bearer ${token}` }
+      })
+          .then(response => {
+              toast.success("Shipment status updated successfully");
+          })
+          .catch(error => { 
+              toast.error("Error updating shipment");
+              console.error('Error updating shipment:', error);
+          });
+
+      router.push(`/`);
+    } catch (e: any){
+    const reason = e?.data?.data?.reason || e.message; 
+
+    toast.promise(
+        new Promise((_, reject) => reject(e)), 
+        {
+            pending: reason, 
+            success: "Nft is yours! Go to profile page",
+            error: reason, 
+        }
+    );
     }
   },[_contract])
   return {
