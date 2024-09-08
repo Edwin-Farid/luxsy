@@ -72,7 +72,8 @@ export const hookFactory: ListedNftsHookFactory = ({contract}) => () => {
       };
 
       const token = sessionStorage.getItem('token');
-      axios.post(`http://127.0.0.1:8000/api/shipment/`, postData, {
+      const url = process.env.NODE_ENV === "production" ? process.env.LUXSY_ADMIN_URL : "http://127.0.0.1:8000/api";
+      axios.post(url+`/shipment`, postData, {
           headers: { Authorization: `Bearer ${token}` }
       })
           .then(response => {

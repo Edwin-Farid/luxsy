@@ -28,7 +28,6 @@ const Profile: NextPage = () => {
     owner: '',
   });
 
-  // console.log(nfts);
   const [activeNft, setActiveNft] = useState<Nft>();
 
   useEffect(() => {
@@ -47,23 +46,19 @@ const Profile: NextPage = () => {
   }
 
   const handlePopupToggle = () => {
-    console.log("token : " + activeNft?.tokenId);
-    console.log("owner : " + shippingMeta.owner);
+    const url = process.env.NODE_ENV === "production" ? process.env.LUXSY_ADMIN_URL : "http://127.0.0.1:8000/api";
 
-    axios.get('http://127.0.0.1:8000/api/shipment', {
+    axios.get(url + '/shipment', {
       params: { tokenId: activeNft?.tokenId, owner: shippingMeta.owner },
     })
       .then(response => {
         setShippingMeta(response.data.data.data[0]);
-        // console.log("token id : " + nfts.data[0].tokenId);
-        // console.log(response.data.data.data[0]);
 
       })
       .catch(error => {
         console.error('Error fetching shipments:', error);
       });
 
-    console.log(shippingMeta);
 
     setIsPopupVisible(!isPopupVisible);
   };
