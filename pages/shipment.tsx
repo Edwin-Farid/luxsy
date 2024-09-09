@@ -17,7 +17,6 @@ const Shipment = () => {
         withdraw: '',
     });
 
-    const url = process.env.NODE_ENV === "production" ? process.env.LUXSY_ADMIN_URL : "http://127.0.0.1:8000/api";
 
     interface Shipment {
         id: number;
@@ -33,7 +32,7 @@ const Shipment = () => {
 
     useEffect(() => {
         const token = sessionStorage.getItem('token');
-        axios.get(url + '/shipment', {
+        axios.get('https://luxsy-admin.blocdev.id/api/shipment', {
             headers: { Authorization: `Bearer ${token}` },
             params: { page: currentPage, perPage: perPage },
         })
@@ -51,7 +50,7 @@ const Shipment = () => {
     const handleUpdate = () => {
         const token = sessionStorage.getItem('token');
         if (selectedShipment) {
-            axios.put(url + `/shipment/${selectedShipment!.id}?status=${shippingMeta.status}&withdraw=${shippingMeta.withdraw}&deliveryNumber=${shippingMeta.deliveryNumber}`, {}, {
+            axios.put('https://luxsy-admin.blocdev.id/api/shipment/${selectedShipment!.id}?status=${shippingMeta.status}&withdraw=${shippingMeta.withdraw}&deliveryNumber=${shippingMeta.deliveryNumber}', {}, {
                 headers: { Authorization: `Bearer ${token}` }
             })
                 .then(response => {
@@ -73,7 +72,7 @@ const Shipment = () => {
 
     const handleDelete = (id: any) => {
         const token = sessionStorage.getItem('token');
-        axios.delete(url + `/shipment/${id}`, {
+        axios.delete('https://luxsy-admin.blocdev.id/api/shipment/${id}', {
             headers: { Authorization: `Bearer ${token}` }
         })
             .then(response => {

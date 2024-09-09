@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/router';
+import { toast } from "react-toastify";
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -16,21 +17,27 @@ const Login = () => {
     setLoading(true);
     setError('');
 
-    try {
-      const url = process.env.NODE_ENV === "production" ? process.env.LUXSY_ADMIN_URL : "http://127.0.0.1:8000/api";
-      const response = await axios.post(url + '/login', { email, password });
+    await toast.promise(
+      axios.post('https://luxsy-admin.blocdev.id/api/login', { email, password })
+        .then((response) => {
 
-      // Save the token in sessionStorage
-      sessionStorage.setItem('token', response.data.data.token);
-
-      // Redirect to homepage or another page
-      router.push(`/`);
-    } catch (error) {
-      console.error('Error logging in', error);
-      setError('Invalid email or password');
-    } finally {
-      setLoading(false);
-    }
+          sessionStorage.setItem('token', response.data.data.token);
+          router.push(`/`);
+        })
+        .catch((error) => {
+          console.error('Error logging in', error);
+          setError('Invalid email or password');
+          throw new Error('Invalid email or password');
+        })
+        .finally(() => {
+          setLoading(false);
+        }),
+      {
+        pending: 'Logging in...',
+        success: 'Login successful!',
+        error: 'Login failed! Invalid email or password',
+      }
+    );
   };
 
   return (

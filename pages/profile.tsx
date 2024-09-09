@@ -46,9 +46,7 @@ const Profile: NextPage = () => {
   }
 
   const handlePopupToggle = () => {
-    const url = process.env.NODE_ENV === "production" ? process.env.LUXSY_ADMIN_URL : "http://127.0.0.1:8000/api";
-
-    axios.get(url + '/shipment', {
+    axios.get('https://luxsy-admin.blocdev.id/api/shipment', {
       params: { tokenId: activeNft?.tokenId, owner: shippingMeta.owner },
     })
       .then(response => {
