@@ -146,7 +146,9 @@ const Shipment = () => {
                         <div className="flex justify-between mb-4 gap-6">
                             <div className="bg-[#776B5D] text-white text-start rounded p-6 shadow-md w-1/4">
                                 <h3 className="text-lg font-light">Transaction</h3>
-                                <p className="text-xl font-semibold">{shipments.reduce((total, shipment) => total + (shipment.price || 0), 0).toPrecision(7)} <span className='text-[#ffffffb1] text-sm'>ETH</span></p>
+                                <p className="text-xl font-semibold"> {shipments && shipments.length > 0 ?
+                                    Number(shipments.reduce((total, shipment) => total + (shipment.price || 0), 0)).toPrecision(7) :
+                                    "0.0000000"}  <span className='text-[#ffffffb1] text-sm'>ETH</span></p>
                             </div>
                             <div className="bg-[#1B9A74] text-white text-start rounded p-6 shadow-md w-1/4">
                                 <h3 className="text-lg font-light">Withdraw</h3>
@@ -219,32 +221,6 @@ const Shipment = () => {
                                                     <path className="group-hover:fill-[#8E8478]" d="M14.4386 4L14.4004 4.03819C14.4125 4.07487 14.4251 4.11206 14.4382 4.14973C14.7633 5.08687 15.3768 6.31538 16.5308 7.4694C17.6848 8.62341 18.9133 9.23686 19.8505 9.56199C19.8876 9.57489 19.9243 9.58733 19.9606 9.59933L11.4001 18.1598C10.823 18.7369 10.5343 19.0255 10.2162 19.2737C9.84082 19.5665 9.43469 19.8175 9.00498 20.0223C8.6407 20.1959 8.25351 20.3249 7.47918 20.583L3.39584 21.9442C3.01478 22.0712 2.59466 21.972 2.31063 21.688C2.0266 21.4039 1.92743 20.9838 2.05445 20.6028L3.41556 16.5194C3.67368 15.7451 3.80273 15.3579 3.97634 14.9936C4.18114 14.5639 4.43213 14.1578 4.7249 13.7824C4.97307 13.4643 5.26165 13.1757 5.83874 12.5986L14.4386 4Z" fill="#1C274C" />
                                                 </svg>
 
-                                            </button>
-                                            <button
-                                                onClick={() => handleDelete(shipment.id)}
-                                                className="px-2 py-1 text-[#FF0000] rounded text-xs group">
-                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="group-hover:fill-[#FF0000]">
-                                                    <path d="M3 6.52381C3 6.12932 3.32671 5.80952 3.72973 5.80952H8.51787C8.52437 4.9683 8.61554 3.81504 9.45037 3.01668C10.1074 2.38839 11.0081 2 12 2C12.9919 2 13.8926 2.38839 14.5496 3.01668C15.3844 3.81504 15.4756 4.9683 15.4821 5.80952H20.2703C20.6733 5.80952 21 6.12932 21 6.52381C21 6.9183 20.6733 7.2381 20.2703 7.2381H3.72973C3.32671 7.2381 3 6.9183 3 6.52381Z"
-                                                        fill="#1C274C"
-                                                        className="group-hover:fill-[#FF0000]" />
-                                                    <path
-                                                        opacity="0.5"
-                                                        d="M11.5956 22.0001H12.4044C15.1871 22.0001 16.5785 22.0001 17.4831 21.1142C18.3878 20.2283 18.4803 18.7751 18.6654 15.8686L18.9321 11.6807C19.0326 10.1037 19.0828 9.31524 18.6289 8.81558C18.1751 8.31592 17.4087 8.31592 15.876 8.31592H8.12405C6.59127 8.31592 5.82488 8.31592 5.37105 8.81558C4.91722 9.31524 4.96744 10.1037 5.06788 11.6807L5.33459 15.8686C5.5197 18.7751 5.61225 20.2283 6.51689 21.1142C7.42153 22.0001 8.81289 22.0001 11.5956 22.0001Z"
-                                                        fill="#1C274C"
-                                                        className="group-hover:fill-[#FF0000]" />
-                                                    <path
-                                                        fillRule="evenodd"
-                                                        clipRule="evenodd"
-                                                        d="M9.42543 11.4815C9.83759 11.4381 10.2051 11.7547 10.2463 12.1885L10.7463 17.4517C10.7875 17.8855 10.4868 18.2724 10.0747 18.3158C9.66253 18.3592 9.29499 18.0426 9.25378 17.6088L8.75378 12.3456C8.71256 11.9118 9.01327 11.5249 9.42543 11.4815Z"
-                                                        fill="#1C274C"
-                                                        className="group-hover:fill-[#FF0000]" />
-                                                    <path
-                                                        fillRule="evenodd"
-                                                        clipRule="evenodd"
-                                                        d="M14.5747 11.4815C14.9868 11.5249 15.2875 11.9118 15.2463 12.3456L14.7463 17.6088C14.7051 18.0426 14.3376 18.3592 13.9254 18.3158C13.5133 18.2724 13.2126 17.8855 13.2538 17.4517L13.7538 12.1885C13.795 11.7547 14.1625 11.4381 14.5747 11.4815Z"
-                                                        fill="#1C274C"
-                                                        className="group-hover:fill-[#FF0000]" />
-                                                </svg>
                                             </button>
                                         </td>
                                     </tr>
