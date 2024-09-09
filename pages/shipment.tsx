@@ -50,11 +50,10 @@ const Shipment = () => {
     const handleUpdate = () => {
         const token = sessionStorage.getItem('token');
         if (selectedShipment) {
-            axios.put('https://luxsy-admin.blocdev.id/api/shipment/${selectedShipment!.id}?status=${shippingMeta.status}&withdraw=${shippingMeta.withdraw}&deliveryNumber=${shippingMeta.deliveryNumber}', {}, {
+            axios.put(`https://luxsy-admin.blocdev.id/api/shipment/${selectedShipment!.id}?status=${shippingMeta.status}&withdraw=${shippingMeta.withdraw}&deliveryNumber=${shippingMeta.deliveryNumber}`, {}, {
                 headers: { Authorization: `Bearer ${token}` }
             })
                 .then(response => {
-                    // alert('Shipment status updated successfully');
                     toast.success("Shipment status updated successfully");
                     setShipments(shipments.map(shipment => shipment.id === selectedShipment.id ? response.data.data : shipment));
                     setIsPopupVisible(false);
@@ -64,7 +63,6 @@ const Shipment = () => {
                 .catch(error => {
                     toast.success("Refresh token!");
                     router.push('/');
-                    // console.error('Error updating shipment:', error);
                 });
         }
     };
