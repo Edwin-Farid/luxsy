@@ -60,8 +60,6 @@ export const hookFactory: ListedNftsHookFactory = ({contract}) => () => {
         }
        );
 
-      alert("You have bought Nft.See profile page");
-
       const postData = {
         tokenId,
         artName,
