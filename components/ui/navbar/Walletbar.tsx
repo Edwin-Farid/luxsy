@@ -2,6 +2,7 @@ import { Menu } from "@headlessui/react";
 import Link from "next/link";
 import { FunctionComponent, useEffect } from "react";
 import { useRouter } from 'next/router';
+import { toast } from "react-toastify";
 
 type WalletbarProps = {
   isLoading: boolean;
@@ -30,6 +31,20 @@ const Walletbar: FunctionComponent<WalletbarProps> = ({
       router.push('/');
     }
   }, [token, router]);
+
+  const handleLogout = () => {
+    toast.promise(
+      new Promise((resolve) => {
+        sessionStorage.removeItem('token');
+        resolve(true); // Resolving the promise after token is removed
+      }),
+      {
+        pending: 'Logging out...',
+        success: 'Logout successful!',
+        error: 'Logout failed!',
+      }
+    );
+  };
 
   if (isLoading) {
     return (
@@ -101,6 +116,20 @@ const Walletbar: FunctionComponent<WalletbarProps> = ({
                     className={classNames(active ? 'bg-gray-100' : '', 'block px-4 pb-2 text-sm text-gray-700')}
                   >
                     Shipment
+                  </a>
+                </Link>
+              )}
+            </Menu.Item>
+          )}
+          {token && (
+            <Menu.Item>
+              {({ active }) => (
+                <Link legacyBehavior href="/">
+                  <a
+                    onClick={handleLogout}
+                    className={classNames(active ? 'bg-gray-100' : '', 'block px-4 pb-2 text-sm text-gray-700')}
+                  >
+                    Logout
                   </a>
                 </Link>
               )}
